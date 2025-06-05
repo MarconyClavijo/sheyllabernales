@@ -1,156 +1,112 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sheylla Bernales y su Ritmo Rebelde</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom right, #ff85c1, #ffc3a0);
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(to bottom right, #ff66cc, #ffcc00);
       color: #fff;
       text-align: center;
     }
 
     header {
-      padding: 2rem 1rem;
-      background-color: rgba(255, 255, 255, 0.1);
+      padding: 2rem 1rem 1rem;
     }
 
-    .logo-animado {
-      max-width: 280px;
-      animation: zoomPulse 3s ease-in-out infinite;
+    .logo {
+      width: 200px;
+      animation: girar 10s linear infinite;
     }
 
-    @keyframes zoomPulse {
-      0%, 100% {
-        transform: scale(1);
-        filter: drop-shadow(0 0 10px #fff5fa);
-      }
-      50% {
-        transform: scale(1.08);
-        filter: drop-shadow(0 0 20px #ffffff);
-      }
+    @keyframes girar {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     h1 {
-      font-size: 2.8rem;
-      margin: 1rem 0 0.5rem;
+      font-family: 'Pacifico', cursive;
+      font-size: 2.5rem;
+      color: #fff;
+      margin-top: 1rem;
     }
 
-    .subtitulo {
-      font-size: 1.5rem;
-      margin-bottom: 2rem;
-      color: #ffd6ec;
-    }
-
-    .audio-container {
-      margin: 2rem auto;
-      background: rgba(255, 255, 255, 0.15);
-      padding: 2rem;
-      border-radius: 15px;
-      max-width: 400px;
+    .audio-section {
+      margin: 2rem 0;
     }
 
     audio {
-      width: 100%;
-      margin-bottom: 1rem;
+      width: 80%;
+      max-width: 400px;
     }
 
-    .btn-descarga {
+    .btn-descarga, .btn-facebook {
       display: inline-block;
-      padding: 0.7rem 1.5rem;
-      background-color: #fff;
-      color: #d9006c;
-      font-weight: bold;
+      margin: 1rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border: none;
       border-radius: 30px;
       text-decoration: none;
-      transition: background 0.3s;
+      background-color: #ffffff;
+      color: #e91e63;
+      font-weight: bold;
+      transition: 0.3s ease;
     }
 
-    .btn-descarga:hover {
-      background-color: #ffe0ef;
+    .btn-descarga:hover, .btn-facebook:hover {
+      background-color: #e91e63;
+      color: #fff;
     }
 
-    .foto-destacada {
-      margin-top: 3rem;
-    }
-
-    .foto-destacada img {
-      max-width: 90%;
+    .extra-img {
+      width: 90%;
+      max-width: 500px;
       border-radius: 20px;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-    }
-
-    .redes-sociales {
-      margin-top: 2rem;
-    }
-
-    .redes-sociales a {
-      display: inline-block;
-      margin: 0.5rem;
-      background-color: #fff;
-      color: #3b5998;
-      padding: 0.6rem 1.2rem;
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background 0.3s;
-    }
-
-    .redes-sociales a:hover {
-      background-color: #dfe9ff;
-    }
-
-    .redes-sociales a i {
-      margin-right: 0.5rem;
+      margin: 2rem auto;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
     }
 
     footer {
-      margin-top: 3rem;
-      padding: 1rem;
       font-size: 0.9rem;
-      background-color: rgba(0, 0, 0, 0.1);
+      margin: 2rem 0;
     }
   </style>
-
-  <!-- Íconos de Font Awesome -->
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
   <header>
-    <img src="http://imgfz.com/i/TKa7Gp5.png" alt="Logo Sheylla Bernales" class="logo-animado" />
-    <h1>Sheylla Bernales</h1>
-    <div class="subtitulo">Y su Ritmo Rebelde</div>
+    <img src="http://imgfz.com/i/TKa7Gp5.png" alt="Logo Sheylla Bernales" class="logo">
+    <h1>Sheylla Bernales y su Ritmo Rebelde</h1>
   </header>
 
-  <section class="audio-container">
-    <h2>🎵 Escucha su primer éxito</h2>
+  <section class="audio-section">
+    <h2>🎶 Escucha su primera grabación: “Mal Paso”</h2>
     <audio controls>
-  <source src="https://github.com/MarconyClavijo/sheyllabernales/blob/aa37cc1a68688f512cbcad330f82b87e9325d1a7/MAL%20PASO%20-%20SHEYLLA%20%20BERNALES.mp3" type="audio/mpeg">
-  Tu navegador no soporta el reproductor de audio.
-</audio>
-
-<a href="https://github.com/MarconyClavijo/sheyllabernales/blob/aa37cc1a68688f512cbcad330f82b87e9325d1a7/MAL%20PASO%20-%20SHEYLLA%20%20BERNALES.mp3" download>
-  Descargar Canción
-</a>
+      <source src="https://marconyclavijo.github.io/sheyllabernales/MAL%20PASO%20-%20SHEYLLA%20%20BERNALES.mp3" type="audio/mpeg">
+      Tu navegador no soporta el reproductor de audio.
+    </audio>
+    <br>
+    <a href="https://marconyclavijo.github.io/sheyllabernales/MAL%20PASO%20-%20SHEYLLA%20%20BERNALES.mp3" download class="btn-descarga">
+      Descargar Canción
+    </a>
   </section>
 
-  <section class="foto-destacada">
-    <h2>📸 Presentación Exclusiva</h2>
-    <img src="http://imgfz.com/i/pJiqYKG.jpeg" alt="Sheylla Bernales Foto" />
-  </section>
+  <img src="http://imgfz.com/i/pJiqYKG.jpeg" alt="Sheylla Bernales" class="extra-img">
 
-  <div class="redes-sociales">
-    <a href="https://www.facebook.com/profile.php?id=61556702668300" target="_blank">
-      <i class="fab fa-facebook-f"></i>Facebook Oficial
+  <div>
+    <a href="https://www.facebook.com/profile.php?id=61556702668300" target="_blank" class="btn-facebook">
+      🌐 Visítanos en Facebook
     </a>
   </div>
 
   <footer>
-    Contacto: +51 964 673 979 | © 2025 Sheylla Bernales
+    📞 Contacto: +51 964 673 979
   </footer>
 
 </body>
