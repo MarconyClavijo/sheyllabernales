@@ -42,61 +42,10 @@
 
     .subtitulo {
       font-size: 1.5rem;
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
       color: #ffd6ec;
     }
 
-    /* Aquí está el nuevo reproductor radio Stereo M justo debajo de las letras */
-    #reproductorRadioSheylla {
-      text-align: center;
-      margin: 1.5rem auto 3rem;
-      max-width: 320px;
-      color: #fff0f5;
-      font-size: 1.1rem;
-    }
-    #reproductorRadioSheylla .radio-flex {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: nowrap;
-    }
-    #reproductorRadioSheylla img {
-      width: 55px;
-      height: 55px;
-      border-radius: 50%;
-      box-shadow: 0 0 10px #ffd700aa;
-      flex-shrink: 0;
-    }
-    #reproductorRadioSheylla button {
-      background: #ffd700;
-      border: none;
-      border-radius: 50%;
-      width: 55px;
-      height: 55px;
-      cursor: pointer;
-      box-shadow: 0 0 15px #ffd700cc;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      color: #a30000;
-      transition: background 0.3s, color 0.3s;
-    }
-    #reproductorRadioSheylla button:hover {
-      background: #fff06a;
-      color: #700000;
-    }
-    #radio-title {
-      font-size: 0.85rem;
-      margin-left: 0.8rem;
-      color: #ffe8f5;
-      text-align: left;
-      flex-grow: 1;
-      user-select: none;
-    }
-
-    /* Se mantiene el estilo original de Sheylla Bernales */
     .audio-container {
       margin: 2.5rem auto;
       background: rgba(255, 255, 255, 0.15);
@@ -105,7 +54,7 @@
       max-width: 420px;
     }
 
-    audio.song {
+    audio {
       width: 100%;
       margin-bottom: 1rem;
     }
@@ -180,6 +129,64 @@
       font-size: 0.9rem;
       background-color: rgba(0, 0, 0, 0.1);
     }
+
+    /* Nuevo estilo para reproductor compacto de Radio Stereo M */
+    #reproductorRadioSheylla {
+      margin-top: 1rem;
+      color: #fff0f5;
+    }
+
+    #reproductorRadioSheylla p {
+      font-size: 1.1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .radio-flex {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .radio-flex a img {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #ffd700aa;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .radio-flex a img:hover {
+      transform: scale(1.1);
+    }
+
+    #toggleRadioBtn {
+      background-color: #ffd700;
+      border: none;
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+      font-size: 1.8rem;
+      cursor: pointer;
+      box-shadow: 0 0 15px #ffd700cc;
+      color: #a30000;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+    #toggleRadioBtn:hover {
+      background-color: #ffea00;
+    }
+
+    #radio-title {
+      font-size: 0.85rem;
+      margin-top: 4px;
+      color: #ffe8f5;
+      max-width: 200px;
+      text-align: left;
+      user-select: none;
+    }
   </style>
 </head>
 <body>
@@ -190,28 +197,28 @@
     <div class="subtitulo">Y su Ritmo Rebelde</div>
   </header>
 
-  <!-- Aquí el nuevo reproductor compacto con botón único play/stop -->
-  <section id="reproductorRadioSheylla" aria-label="Radio Stereo M reproductor en vivo">
-    <p>🎧 Escucha mi canción aquí en <strong>Radio Stereo M</strong>:</p>
-    <div class="radio-flex">
-      <img src="https://i.postimg.cc/L8bjb6K5/1687464033296.png" alt="Logo Radio Stereo M" />
-      <button id="toggleRadioBtn" aria-pressed="false" aria-label="Reproducir radio">▶️</button>
-      <div id="radio-title">Cargando canción...</div>
-    </div>
-    <audio id="radioAudio" preload="none" src="https://sonic.globalstream.pro/8108/stream"></audio>
-  </section>
-
-  <!-- Contenido original Sheylla Bernales con canción y descarga -->
-  <section class="audio-container" aria-label="Canción Mal Paso">
+  <section class="audio-container" aria-label="Reproductor de canción Mal Paso">
     <h2>🎵 Escucha su primer éxito</h2>
     <p style="font-size: 1.2rem; color: #fff8fc; margin-bottom: 1rem;">
       <strong>🎶 "Mal Paso" – Sheylla Bernales</strong>
     </p>
-    <audio controls class="song" preload="metadata" >
+    <audio controls preload="none">
       <source src="https://marconyclavijo.github.io/sheyllabernales/MAL%20PASO%20-%20SHEYLLA%20%20BERNALES.mp3" type="audio/mpeg" />
       Tu navegador no soporta el reproductor de audio.
     </audio>
-    <a href="https://marconyclavijo.github.io/sheyllabernales/MAL%20PASO%20-%20SHEYLLA%20%20BERNALES.mp3" download class="btn-descarga" aria-label="Descargar canción Mal Paso">Descargar Canción</a>
+    <a href="https://marconyclavijo.github.io/sheyllabernales/MAL%20PASO%20-%20SHEYLLA%20%20BERNALES.mp3" download class="btn-descarga">Descargar Canción</a>
+  </section>
+
+  <section id="reproductorRadioSheylla" aria-label="Radio Stereo M reproductor en vivo">
+    <p>🎧 Escucha mi canción aquí en <strong>Radio Stereo M</strong>:</p>
+    <div class="radio-flex">
+      <a href="https://radiostereom.com/" target="_blank" rel="noopener noreferrer" aria-label="Visitar Radio Stereo M">
+        <img src="https://i.postimg.cc/L8bjb6K5/1687464033296.png" alt="Logo Radio Stereo M" />
+      </a>
+      <button id="toggleRadioBtn" aria-pressed="false" aria-label="Reproducir radio">▶️</button>
+      <div id="radio-title">Cargando canción...</div>
+    </div>
+    <audio id="radioAudio" preload="none" src="https://sonic.globalstream.pro/8108/stream"></audio>
   </section>
 
   <section class="foto-artistica">
@@ -225,48 +232,42 @@
     </p>
   </section>
 
-  <section class="social-buttons" aria-label="Redes sociales">
+  <section class="social-buttons">
     <a href="https://www.facebook.com/profile.php?id=61556702668300" target="_blank" rel="noopener noreferrer">🌐 Facebook</a>
     <a href="https://wa.me/51964673979?text=Hola%20Sheylla%2C%20escuch%C3%A9%20tu%20m%C3%BAsica%20y%20me%20encant%C3%B3.%20%C2%A1Quisiera%20saber%20m%C3%A1s!" target="_blank" rel="noopener noreferrer">📱 WhatsApp</a>
   </section>
 
   <footer>
-    Diseño y desarrollo web por Marcony Clavijo | Innovación que conecta.
+    Diseño y desarrollo web por Marcony Clavijo | Innovación que inspira © 2025
   </footer>
 
   <script>
-    const toggleBtn = document.getElementById('toggleRadioBtn');
-    const radioAudio = document.getElementById('radioAudio');
+    const audio = document.getElementById('radioAudio');
+    const btn = document.getElementById('toggleRadioBtn');
     const radioTitle = document.getElementById('radio-title');
 
-    // Cambia icono play/stop y estado aria-pressed
-    function updateButton(isPlaying) {
-      toggleBtn.textContent = isPlaying ? '⏹️' : '▶️';
-      toggleBtn.setAttribute('aria-pressed', isPlaying);
-      toggleBtn.setAttribute('aria-label', isPlaying ? 'Detener radio' : 'Reproducir radio');
+    // Función para alternar play/stop
+    function toggleAudio() {
+      if (audio.paused) {
+        audio.play().then(() => {
+          btn.textContent = '⏹️';
+          btn.setAttribute('aria-pressed', 'true');
+        }).catch(() => {
+          // Si no se pudo reproducir (autoplay bloqueo), dejar botón en play
+          btn.textContent = '▶️';
+          btn.setAttribute('aria-pressed', 'false');
+        });
+      } else {
+        audio.pause();
+        audio.currentTime = 0;
+        btn.textContent = '▶️';
+        btn.setAttribute('aria-pressed', 'false');
+      }
     }
 
-    // Control del botón único play/stop
-    toggleBtn.addEventListener('click', () => {
-      if (radioAudio.paused) {
-        radioAudio.play();
-        updateButton(true);
-      } else {
-        radioAudio.pause();
-        updateButton(false);
-      }
-    });
+    btn.addEventListener('click', toggleAudio);
 
-    // Al cargar, intenta reproducir automáticamente
-    window.addEventListener('load', () => {
-      radioAudio.play().then(() => {
-        updateButton(true);
-      }).catch(() => {
-        updateButton(false);
-      });
-    });
-
-    // Mostrar título canción en vivo usando proxy para evitar CORS
+    // Actualizar título de la canción
     async function fetchRadioTitle() {
       try {
         const proxy = "https://api.allorigins.win/get?url=";
@@ -275,7 +276,7 @@
         const data = await res.json();
         const parsed = JSON.parse(data.contents);
         radioTitle.textContent = parsed.songtitle || "Sin título";
-      } catch (e) {
+      } catch {
         radioTitle.textContent = "Error al cargar título";
       }
     }
@@ -283,10 +284,8 @@
     fetchRadioTitle();
     setInterval(fetchRadioTitle, 5000);
 
-    // Actualiza botón si usuario pausa o termina el audio desde controles del navegador
-    radioAudio.addEventListener('play', () => updateButton(true));
-    radioAudio.addEventListener('pause', () => updateButton(false));
-    radioAudio.addEventListener('ended', () => updateButton(false));
+    // Intentar autoplay (sin botón pulsado), para evitar bloqueo automático en móviles,
+    // No hacemos autoplay automáticamente; el usuario debe tocar el botón para empezar
   </script>
 </body>
 </html>
