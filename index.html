@@ -1,193 +1,292 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Sheylla Bernales - Ritmo Rebelde</title>
-<style>
-  body {
-    margin: 0;
-    background: linear-gradient(135deg, #ff85c1, #ffc3a0);
-    color: #fff;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    text-align: center;
-    padding: 2rem 1rem;
-  }
-  header {
-    margin-bottom: 1.5rem;
-  }
-  header img {
-    width: 140px;
-    border-radius: 12px;
-    box-shadow: 0 0 15px #ff6392aa;
-  }
-  h1 {
-    font-weight: 700;
-    margin-top: 0.5rem;
-    margin-bottom: 0.25rem;
-    font-size: 2rem;
-    text-shadow: 1px 1px 6px #a60000aa;
-  }
-  h2 {
-    font-weight: 500;
-    margin: 0 0 1.8rem 0;
-    font-style: italic;
-    color: #ffd1dc;
-  }
-  /* Reproductor */
-  #reproductorRadioSheylla {
-    margin: 2rem auto 0 auto;
-    max-width: 320px;
-    background: rgba(255 255 255 / 0.15);
-    padding: 1.2rem 1rem;
-    border-radius: 15px;
-    box-shadow: 0 0 15px #ffd700aa;
-  }
-  #reproductorRadioSheylla p {
-    font-size: 1.1rem;
-    margin-bottom: 0.8rem;
-    color: #fff0f5;
-  }
-  .radio-flex {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-  .radio-flex img {
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    box-shadow: 0 0 10px #ffd700aa;
-    flex-shrink: 0;
-  }
-  #radio-title {
-    font-size: 0.9rem;
-    margin-top: 6px;
-    color: #ffe8f5;
-    max-width: 200px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: left;
-  }
-  #btnPlayStop {
-    background: #ffd700;
-    border: none;
-    border-radius: 50%;
-    width: 48px;
-    height: 48px;
-    cursor: pointer;
-    font-size: 1.5rem;
-    color: #a60000;
-    box-shadow: 0 0 12px #ffd700cc;
-    transition: background-color 0.3s ease;
-    margin-left: 12px;
-    flex-shrink: 0;
-  }
-  #btnPlayStop:hover {
-    background: #ffea00;
-  }
-  audio {
-    display: none;
-  }
-  /* Contacto */
-  footer {
-    margin-top: 3rem;
-    font-size: 1rem;
-    color: #fff0f5;
-  }
-  footer a {
-    color: #ffd700;
-    text-decoration: none;
-    font-weight: 600;
-  }
-  footer a:hover {
-    text-decoration: underline;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sheylla Bernales y su Ritmo Rebelde</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #ff85c1, #ffc3a0);
+      color: #fff;
+      text-align: center;
+    }
+
+    header {
+      padding: 2rem 1rem;
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .logo-animado {
+      max-width: 300px;
+      animation: zoomPulse 4s ease-in-out infinite;
+      filter: drop-shadow(0 0 25px #fff5fa);
+    }
+
+    @keyframes zoomPulse {
+      0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 20px #ffccf1);
+      }
+      50% {
+        transform: scale(1.08);
+        filter: drop-shadow(0 0 35px #ffffff);
+      }
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin: 1rem 0 0.5rem;
+    }
+
+    .subtitulo {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #ffd6ec;
+    }
+
+    /* Aquí está el nuevo reproductor radio Stereo M justo debajo de las letras */
+    #reproductorRadioSheylla {
+      text-align: center;
+      margin: 1.5rem auto 3rem;
+      max-width: 320px;
+      color: #fff0f5;
+      font-size: 1.1rem;
+    }
+    #reproductorRadioSheylla .radio-flex {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: nowrap;
+    }
+    #reproductorRadioSheylla img {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #ffd700aa;
+      flex-shrink: 0;
+    }
+    #reproductorRadioSheylla button {
+      background: #ffd700;
+      border: none;
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+      cursor: pointer;
+      box-shadow: 0 0 15px #ffd700cc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: #a30000;
+      transition: background 0.3s, color 0.3s;
+    }
+    #reproductorRadioSheylla button:hover {
+      background: #fff06a;
+      color: #700000;
+    }
+    #radio-title {
+      font-size: 0.85rem;
+      margin-left: 0.8rem;
+      color: #ffe8f5;
+      text-align: left;
+      flex-grow: 1;
+      user-select: none;
+    }
+
+    /* Se mantiene el estilo original de Sheylla Bernales */
+    .audio-container {
+      margin: 2.5rem auto;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 2rem;
+      border-radius: 15px;
+      max-width: 420px;
+    }
+
+    audio.song {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+
+    .btn-descarga {
+      display: inline-block;
+      padding: 0.7rem 1.5rem;
+      background-color: #fff;
+      color: #d9006c;
+      font-weight: bold;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .btn-descarga:hover {
+      background-color: #ffe0ef;
+    }
+
+    .foto-artistica {
+      margin: 3rem 0 1rem;
+    }
+
+    .foto-artistica img {
+      width: 90%;
+      max-width: 500px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    }
+
+    .sobre-sheylla {
+      margin: 4rem auto 2rem;
+      max-width: 700px;
+      padding: 0 1.5rem;
+    }
+
+    .sobre-sheylla h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #fff0f5;
+    }
+
+    .sobre-sheylla p {
+      font-size: 1.15rem;
+      line-height: 1.7;
+      color: #fff8fc;
+    }
+
+    .social-buttons {
+      margin: 3rem 0;
+    }
+
+    .social-buttons a {
+      display: inline-block;
+      margin: 0 10px;
+      padding: 0.8rem 1.6rem;
+      background-color: #fff;
+      color: #d9006c;
+      font-weight: bold;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .social-buttons a:hover {
+      background-color: #ffe0ef;
+    }
+
+    footer {
+      margin-top: 3rem;
+      padding: 1rem;
+      font-size: 0.9rem;
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  </style>
 </head>
 <body>
 
-<header>
-  <img src="http://imgfz.com/i/pJiqYKG.jpeg" alt="Sheylla Bernales Logo" />
-  <h1>Sheylla Bernales</h1>
-  <h2>Ritmo Rebelde</h2>
-</header>
+  <header>
+    <img src="http://imgfz.com/i/TKa7Gp5.png" alt="Logo Sheylla Bernales" class="logo-animado" />
+    <h1>Sheylla Bernales</h1>
+    <div class="subtitulo">Y su Ritmo Rebelde</div>
+  </header>
 
-<section id="reproductorRadioSheylla">
-  <p>🎧 Escucha mi canción aquí en <strong>Radio Stereo M</strong>:</p>
-  <div class="radio-flex" style="justify-content: center;">
-    <img src="https://i.postimg.cc/L8bjb6K5/1687464033296.png" alt="Logo Stereo M" />
-    <div style="display:flex; align-items:center; gap:10px;">
-      <div>
-        <div id="radio-title">Cargando canción...</div>
-      </div>
-      <button id="btnPlayStop" title="Reproducir ▶️">▶️</button>
+  <!-- Aquí el nuevo reproductor compacto con botón único play/stop -->
+  <section id="reproductorRadioSheylla" aria-label="Radio Stereo M reproductor en vivo">
+    <p>🎧 Escucha mi canción aquí en <strong>Radio Stereo M</strong>:</p>
+    <div class="radio-flex">
+      <img src="https://i.postimg.cc/L8bjb6K5/1687464033296.png" alt="Logo Radio Stereo M" />
+      <button id="toggleRadioBtn" aria-pressed="false" aria-label="Reproducir radio">▶️</button>
+      <div id="radio-title">Cargando canción...</div>
     </div>
-  </div>
-  <audio id="radioAudio" preload="auto" crossorigin="anonymous">
-    <source src="https://sonic.globalstream.pro/8108/stream" type="audio/mpeg" />
-    Tu navegador no soporta audio HTML5.
-  </audio>
-</section>
+    <audio id="radioAudio" preload="none" src="https://sonic.globalstream.pro/8108/stream"></audio>
+  </section>
 
-<footer>
-  <p>Contacto WhatsApp: <a href="https://wa.me/51964673979" target="_blank">+51 964 673 979</a></p>
-</footer>
+  <!-- Contenido original Sheylla Bernales con canción y descarga -->
+  <section class="audio-container" aria-label="Canción Mal Paso">
+    <h2>🎵 Escucha su primer éxito</h2>
+    <p style="font-size: 1.2rem; color: #fff8fc; margin-bottom: 1rem;">
+      <strong>🎶 "Mal Paso" – Sheylla Bernales</strong>
+    </p>
+    <audio controls class="song" preload="metadata" >
+      <source src="https://marconyclavijo.github.io/sheyllabernales/MAL%20PASO%20-%20SHEYLLA%20%20BERNALES.mp3" type="audio/mpeg" />
+      Tu navegador no soporta el reproductor de audio.
+    </audio>
+    <a href="https://marconyclavijo.github.io/sheyllabernales/MAL%20PASO%20-%20SHEYLLA%20%20BERNALES.mp3" download class="btn-descarga" aria-label="Descargar canción Mal Paso">Descargar Canción</a>
+  </section>
 
-<script>
-  const audio = document.getElementById('radioAudio');
-  const btn = document.getElementById('btnPlayStop');
-  const radioTitle = document.getElementById('radio-title');
+  <section class="foto-artistica">
+    <img src="http://imgfz.com/i/pJiqYKG.jpeg" alt="Sheylla en escena" />
+  </section>
 
-  async function fetchRadioTitle() {
-    try {
-      const proxy = "https://api.allorigins.win/get?url=";
-      const url = encodeURIComponent("http://sonic.globalstream.pro:8108/stats?sid=1&json=1&nocache=" + Date.now());
-      const res = await fetch(proxy + url);
-      const data = await res.json();
-      const parsed = JSON.parse(data.contents);
-      radioTitle.textContent = parsed.songtitle || "Sin título";
-    } catch {
-      radioTitle.textContent = "Error al cargar título";
+  <section class="sobre-sheylla">
+    <h2>✨ Conoce a Sheylla</h2>
+    <p>
+      Sheylla Bernales es una artista peruana que desborda pasión, ritmo y autenticidad. Su estilo rebelde y tropical conquista escenarios y corazones. Con su primer sencillo "Mal Paso", Sheylla inicia un viaje musical lleno de energía y emociones. ¡Síguela y siente el poder de su ritmo rebelde!
+    </p>
+  </section>
+
+  <section class="social-buttons" aria-label="Redes sociales">
+    <a href="https://www.facebook.com/profile.php?id=61556702668300" target="_blank" rel="noopener noreferrer">🌐 Facebook</a>
+    <a href="https://wa.me/51964673979?text=Hola%20Sheylla%2C%20escuch%C3%A9%20tu%20m%C3%BAsica%20y%20me%20encant%C3%B3.%20%C2%A1Quisiera%20saber%20m%C3%A1s!" target="_blank" rel="noopener noreferrer">📱 WhatsApp</a>
+  </section>
+
+  <footer>
+    Diseño y desarrollo web por Marcony Clavijo | Innovación que conecta.
+  </footer>
+
+  <script>
+    const toggleBtn = document.getElementById('toggleRadioBtn');
+    const radioAudio = document.getElementById('radioAudio');
+    const radioTitle = document.getElementById('radio-title');
+
+    // Cambia icono play/stop y estado aria-pressed
+    function updateButton(isPlaying) {
+      toggleBtn.textContent = isPlaying ? '⏹️' : '▶️';
+      toggleBtn.setAttribute('aria-pressed', isPlaying);
+      toggleBtn.setAttribute('aria-label', isPlaying ? 'Detener radio' : 'Reproducir radio');
     }
-  }
-  fetchRadioTitle();
-  setInterval(fetchRadioTitle, 5000);
 
-  function updateButtonIcon() {
-    if (!audio.paused) {
-      btn.textContent = '⏹️';
-      btn.title = 'Detener ⏹️';
-    } else {
-      btn.textContent = '▶️';
-      btn.title = 'Reproducir ▶️';
-    }
-  }
-
-  btn.addEventListener('click', () => {
-    if (audio.paused) {
-      audio.play().catch(e => {
-        console.log("Error al reproducir:", e);
-      });
-    } else {
-      audio.pause();
-      audio.currentTime = 0;
-    }
-    updateButtonIcon();
-  });
-
-  audio.addEventListener('play', updateButtonIcon);
-  audio.addEventListener('pause', updateButtonIcon);
-
-  window.addEventListener('load', () => {
-    audio.play().catch(() => {
-      updateButtonIcon();
+    // Control del botón único play/stop
+    toggleBtn.addEventListener('click', () => {
+      if (radioAudio.paused) {
+        radioAudio.play();
+        updateButton(true);
+      } else {
+        radioAudio.pause();
+        updateButton(false);
+      }
     });
-  });
-</script>
 
+    // Al cargar, intenta reproducir automáticamente
+    window.addEventListener('load', () => {
+      radioAudio.play().then(() => {
+        updateButton(true);
+      }).catch(() => {
+        updateButton(false);
+      });
+    });
+
+    // Mostrar título canción en vivo usando proxy para evitar CORS
+    async function fetchRadioTitle() {
+      try {
+        const proxy = "https://api.allorigins.win/get?url=";
+        const url = encodeURIComponent("http://sonic.globalstream.pro:8108/stats?sid=1&json=1&nocache=" + Date.now());
+        const res = await fetch(proxy + url);
+        const data = await res.json();
+        const parsed = JSON.parse(data.contents);
+        radioTitle.textContent = parsed.songtitle || "Sin título";
+      } catch (e) {
+        radioTitle.textContent = "Error al cargar título";
+      }
+    }
+
+    fetchRadioTitle();
+    setInterval(fetchRadioTitle, 5000);
+
+    // Actualiza botón si usuario pausa o termina el audio desde controles del navegador
+    radioAudio.addEventListener('play', () => updateButton(true));
+    radioAudio.addEventListener('pause', () => updateButton(false));
+    radioAudio.addEventListener('ended', () => updateButton(false));
+  </script>
 </body>
 </html>
