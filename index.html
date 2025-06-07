@@ -301,54 +301,43 @@
     Diseño y desarrollo web por Marcony Clavijo | Innovación que conecta.
   </footer>
 
-  <div id="stereoMFloating">
-    <div class="mensaje-stereo">🎧 Mi canción la escuchas en <strong>Radio Stereo M</strong></div>
-    <button id="stereoMBtn" title="Escucha Stereo M">
-      <img src="https://i.postimg.cc/L8bjb6K5/1687464033296.png" alt="Stereo M">
-      <div class="ondas"></div>
-    </button>
+ <!-- Reproductor elegante de Radio Stereo M -->
+<section id="reproductorRadioSheylla" style="text-align: center; margin-top: 2rem;">
+  <p style="font-size: 1.1rem; color: #fff0f5; margin-bottom: 0.8rem;">
+    🎧 Escucha mi canción aquí en <strong>Radio Stereo M</strong>:
+  </p>
+  <div style="display: flex; justify-content: center; align-items: center; gap: 1rem; flex-wrap: wrap;">
+    <img src="https://i.postimg.cc/L8bjb6K5/1687464033296.png" alt="Logo Stereo M" style="width: 55px; height: 55px; border-radius: 50%; box-shadow: 0 0 10px #ffd700aa; flex-shrink: 0;">
+    <div style="display: flex; flex-direction: column; align-items: flex-start;">
+      <audio controls preload="none" style="width: 200px; max-width: 90vw; border-radius: 10px; box-shadow: 0 0 10px #ffd70066; outline: none;">
+        <source src="https://sonic.globalstream.pro/8108/stream" type="audio/mpeg">
+        Tu navegador no soporta audio HTML5.
+      </audio>
+      <div id="radio-title" style="font-size: 0.85rem; margin-top: 4px; color: #ffe8f5; text-align: left;">
+        Cargando canción...
+      </div>
+    </div>
   </div>
+</section>
 
-  <div id="stereoMModal">
-    <button id="stereoMClose">×</button>
-    <img src="https://i.postimg.cc/L8bjb6K5/1687464033296.png" alt="Logo Stereo M">
-    <h3>Radio Stereo M</h3>
-    <audio controls autoplay>
-      <source src="https://sonic.globalstream.pro/8108/stream" type="audio/mpeg">
-      Tu navegador no soporta audio HTML5.
-    </audio>
-    <div id="stereoMTitle">Cargando canción...</div>
-  </div>
-
-  <script>
-    const btn = document.getElementById('stereoMBtn');
-    const modal = document.getElementById('stereoMModal');
-    const close = document.getElementById('stereoMClose');
-
-    btn.addEventListener('click', () => {
-      modal.style.display = 'block';
-    });
-
-    close.addEventListener('click', () => {
-      modal.style.display = 'none';
-    });
-
-    async function fetchStereoMTitle() {
-      try {
-        const proxy = "https://api.allorigins.win/get?url=";
-        const url = encodeURIComponent("http://sonic.globalstream.pro:8108/stats?sid=1&json=1&nocache=" + Date.now());
-        const res = await fetch(proxy + url);
-        const data = await res.json();
-        const parsed = JSON.parse(data.contents);
-        document.getElementById('stereoMTitle').textContent = parsed.songtitle || "Sin título";
-      } catch (e) {
-        document.getElementById('stereoMTitle').textContent = "Error al cargar";
-      }
+<!-- Script para mostrar el título de la canción en vivo -->
+<script>
+  async function fetchRadioTitle() {
+    try {
+      const proxy = "https://api.allorigins.win/get?url=";
+      const url = encodeURIComponent("http://sonic.globalstream.pro:8108/stats?sid=1&json=1&nocache=" + Date.now());
+      const res = await fetch(proxy + url);
+      const data = await res.json();
+      const parsed = JSON.parse(data.contents);
+      document.getElementById('radio-title').textContent = parsed.songtitle || "Sin título";
+    } catch (e) {
+      document.getElementById('radio-title').textContent = "Error al cargar título";
     }
+  }
 
-    fetchStereoMTitle();
-    setInterval(fetchStereoMTitle, 5000);
-  </script>
+  fetchRadioTitle();
+  setInterval(fetchRadioTitle, 5000);
+</script>
 
 </body>
 </html>
