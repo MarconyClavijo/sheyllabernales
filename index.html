@@ -3,20 +3,40 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Reproductor Radio Stereo M - Sheylla Bernales</title>
+<title>Sheylla Bernales - Ritmo Rebelde</title>
 <style>
   body {
+    margin: 0;
     background: linear-gradient(135deg, #ff85c1, #ffc3a0);
     color: #fff;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: center;
     padding: 2rem 1rem;
   }
-  h1 {
-    margin-bottom: 0.5rem;
+  header {
+    margin-bottom: 1.5rem;
   }
+  header img {
+    width: 140px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px #ff6392aa;
+  }
+  h1 {
+    font-weight: 700;
+    margin-top: 0.5rem;
+    margin-bottom: 0.25rem;
+    font-size: 2rem;
+    text-shadow: 1px 1px 6px #a60000aa;
+  }
+  h2 {
+    font-weight: 500;
+    margin: 0 0 1.8rem 0;
+    font-style: italic;
+    color: #ffd1dc;
+  }
+  /* Reproductor */
   #reproductorRadioSheylla {
-    margin: 2rem auto;
+    margin: 2rem auto 0 auto;
     max-width: 320px;
     background: rgba(255 255 255 / 0.15);
     padding: 1.2rem 1rem;
@@ -50,6 +70,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-align: left;
   }
   #btnPlayStop {
     background: #ffd700;
@@ -69,13 +90,31 @@
     background: #ffea00;
   }
   audio {
-    display: none; /* ocultamos el reproductor nativo */
+    display: none;
+  }
+  /* Contacto */
+  footer {
+    margin-top: 3rem;
+    font-size: 1rem;
+    color: #fff0f5;
+  }
+  footer a {
+    color: #ffd700;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  footer a:hover {
+    text-decoration: underline;
   }
 </style>
 </head>
 <body>
 
-<h1>Escucha Sheylla Bernales en Radio Stereo M</h1>
+<header>
+  <img src="http://imgfz.com/i/pJiqYKG.jpeg" alt="Sheylla Bernales Logo" />
+  <h1>Sheylla Bernales</h1>
+  <h2>Ritmo Rebelde</h2>
+</header>
 
 <section id="reproductorRadioSheylla">
   <p>🎧 Escucha mi canción aquí en <strong>Radio Stereo M</strong>:</p>
@@ -93,6 +132,10 @@
     Tu navegador no soporta audio HTML5.
   </audio>
 </section>
+
+<footer>
+  <p>Contacto WhatsApp: <a href="https://wa.me/51964673979" target="_blank">+51 964 673 979</a></p>
+</footer>
 
 <script>
   const audio = document.getElementById('radioAudio');
@@ -114,13 +157,12 @@
   fetchRadioTitle();
   setInterval(fetchRadioTitle, 5000);
 
-  // Función para actualizar icono del botón
   function updateButtonIcon() {
     if (!audio.paused) {
-      btn.textContent = '⏹️'; // muestra stop cuando está sonando
+      btn.textContent = '⏹️';
       btn.title = 'Detener ⏹️';
     } else {
-      btn.textContent = '▶️'; // muestra play cuando está detenido
+      btn.textContent = '▶️';
       btn.title = 'Reproducir ▶️';
     }
   }
@@ -137,14 +179,11 @@
     updateButtonIcon();
   });
 
-  // Actualizar icono cuando cambia estado
   audio.addEventListener('play', updateButtonIcon);
   audio.addEventListener('pause', updateButtonIcon);
 
-  // Intentar autoplay al cargar la página
   window.addEventListener('load', () => {
     audio.play().catch(() => {
-      // si autoplay bloqueado, se queda en pausa y usuario puede usar el botón
       updateButtonIcon();
     });
   });
