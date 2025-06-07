@@ -46,6 +46,79 @@
       color: #ffd6ec;
     }
 
+    /* Nuevo contenedor para el botón y mensaje dentro del header */
+    #stereoMContainer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .mensaje-stereo-inline {
+      background: #fff;
+      color: #d9006c;
+      font-weight: bold;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 1rem;
+      box-shadow: 0 0 10px #ffd70088;
+      white-space: nowrap;
+    }
+
+    #stereoMBtnInline {
+      background: #ffd700;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    #stereoMBtnInline img {
+      width: 80%;
+      border-radius: 50%;
+      position: relative;
+      z-index: 2;
+    }
+
+    #stereoMBtnInline .ondas {
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: rgba(255, 215, 0, 0.4);
+      animation: ondas 2s infinite ease-out;
+      z-index: 1;
+    }
+
+    @keyframes ondas {
+      0% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(1.8);
+        opacity: 0;
+      }
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #fff0f5;
+    }
+
     .audio-container {
       margin: 2.5rem auto;
       background: rgba(255, 255, 255, 0.15);
@@ -128,74 +201,7 @@
       padding: 1rem;
       font-size: 0.9rem;
       background-color: rgba(0, 0, 0, 0.1);
-    }
-
-    /* Estilo para botón y mensaje de Radio Stereo M */
-    #stereoMFloating {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      text-align: center;
-      z-index: 9999;
-    }
-
-    .mensaje-stereo {
-      background: #fff;
-      color: #d9006c;
-      font-weight: bold;
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      margin-bottom: 0.5rem;
-      font-size: 0.9rem;
-      animation: rebotar 2s infinite;
-      box-shadow: 0 0 10px #ffd70088;
-    }
-
-    #stereoMBtn {
-      background: #ffd700;
-      border: none;
-      border-radius: 50%;
-      width: 70px;
-      height: 70px;
-      position: relative;
-      cursor: pointer;
-      overflow: hidden;
-      transition: transform 0.3s;
-    }
-
-    #stereoMBtn img {
-      width: 100%;
-      border-radius: 50%;
-      position: relative;
-      z-index: 2;
-    }
-
-    .ondas {
-      position: absolute;
-      top: -10px;
-      left: -10px;
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      background: rgba(255, 215, 0, 0.4);
-      animation: ondas 2s infinite ease-out;
-      z-index: 1;
-    }
-
-    @keyframes ondas {
-      0% {
-        transform: scale(1);
-        opacity: 0.8;
-      }
-      100% {
-        transform: scale(1.8);
-        opacity: 0;
-      }
-    }
-
-    @keyframes rebotar {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
+      color: #222;
     }
 
     /* Modal del reproductor */
@@ -262,6 +268,15 @@
     <img src="http://imgfz.com/i/TKa7Gp5.png" alt="Logo Sheylla Bernales" class="logo-animado" />
     <h1>Sheylla Bernales</h1>
     <div class="subtitulo">Y su Ritmo Rebelde</div>
+
+    <!-- Botón y mensaje movidos aquí -->
+    <div id="stereoMContainer">
+      <div class="mensaje-stereo-inline">🎧 Escucha mi canción aquí en <strong>Radio Stereo M</strong></div>
+      <button id="stereoMBtnInline" title="Escucha Stereo M">
+        <img src="https://i.postimg.cc/L8bjb6K5/1687464033296.png" alt="Stereo M" />
+        <div class="ondas"></div>
+      </button>
+    </div>
   </header>
 
   <section class="audio-container">
@@ -296,29 +311,20 @@
     Diseño y desarrollo web por Marcony Clavijo | Innovación que conecta.
   </footer>
 
-  <!-- Botón flotante y mensaje de Radio Stereo M -->
-  <div id="stereoMFloating">
-    <div class="mensaje-stereo">🎧 Mi canción la escuchas en <strong>Radio Stereo M</strong></div>
-    <button id="stereoMBtn" title="Escucha Stereo M">
-      <img src="https://i.postimg.cc/L8bjb6K5/1687464033296.png" alt="Stereo M">
-      <div class="ondas"></div>
-    </button>
-  </div>
-
   <!-- Modal con reproductor -->
   <div id="stereoMModal">
     <button id="stereoMClose">×</button>
     <img src="https://i.postimg.cc/L8bjb6K5/1687464033296.png" alt="Logo Stereo M">
     <h3>Radio Stereo M</h3>
     <audio controls autoplay>
-      <source src="https://sonic.globalstream.pro/8108/stream" type="audio/mpeg">
+      <source src="https://sonic.globalstream.pro/8108/stream" type="audio/mpeg" />
       Tu navegador no soporta audio HTML5.
     </audio>
     <div id="stereoMTitle" style="margin-top:10px; font-size:0.9em; text-align:center;">Cargando canción...</div>
   </div>
 
   <script>
-    const btn = document.getElementById('stereoMBtn');
+    const btn = document.getElementById('stereoMBtnInline');
     const modal = document.getElementById('stereoMModal');
     const close = document.getElementById('stereoMClose');
 
@@ -334,17 +340,24 @@
       try {
         const proxy = "https://api.allorigins.win/get?url=";
         const url = encodeURIComponent("http://sonic.globalstream.pro:8108/stats?sid=1&json=1&nocache=" + Date.now());
-        const res = await fetch(proxy + url);
-        const data = await res.json();
-        const parsed = JSON.parse(data.contents);
-        document.getElementById('stereoMTitle').textContent = parsed.songtitle || "Sin título";
+        const response = await fetch(proxy + url);
+        const data = await response.json();
+        const jsonData = JSON.parse(data.contents);
+        const titleElem = document.getElementById('stereoMTitle');
+        if (jsonData.songtitle) {
+          titleElem.textContent = "Ahora escuchando: " + jsonData.songtitle;
+        } else {
+          titleElem.textContent = "Información no disponible";
+        }
       } catch (e) {
-        document.getElementById('stereoMTitle').textContent = "Error al cargar";
+        console.error(e);
+        document.getElementById('stereoMTitle').textContent = "No se pudo obtener la información";
       }
     }
 
+    // Actualiza el título cada 10 segundos
+    setInterval(fetchStereoMTitle, 10000);
     fetchStereoMTitle();
-    setInterval(fetchStereoMTitle, 5000);
   </script>
 
 </body>
