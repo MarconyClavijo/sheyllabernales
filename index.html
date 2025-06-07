@@ -3,333 +3,110 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sheylla Bernales y su Ritmo Rebelde</title>
+  <title>Sheylla Bernales - Ritmo Rebelde</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom right, #ff85c1, #ffc3a0);
-      color: #fff;
+      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(to bottom, #e60073, #5900b3);
+      color: white;
       text-align: center;
     }
 
-    header {
-      padding: 2rem 1rem 3rem;
-      background-color: rgba(255, 255, 255, 0.05);
+    .contenido {
+      padding: 2rem;
     }
 
-    .logo-animado {
-      max-width: 300px;
-      animation: zoomPulse 4s ease-in-out infinite;
-      filter: drop-shadow(0 0 25px #fff5fa);
-      margin: 0 auto 1rem;
-      display: block;
-    }
-
-    @keyframes zoomPulse {
-      0%, 100% {
-        transform: scale(1);
-        filter: drop-shadow(0 0 20px #ffccf1);
-      }
-      50% {
-        transform: scale(1.08);
-        filter: drop-shadow(0 0 35px #ffffff);
-      }
-    }
-
-    h1 {
-      font-size: 2.8rem;
-      margin: 1rem 0 0.5rem;
+    .titulo {
+      font-size: 2rem;
+      margin-bottom: 1rem;
     }
 
     .subtitulo {
-      font-size: 1.5rem;
-      margin-bottom: 2rem;
-      color: #ffd6ec;
-    }
-
-    /* Nuevo contenedor del reproductor inline */
-    #stereoMContainer {
-      margin-top: 2rem;
-      text-align: center;
-    }
-
-    .mensaje-stereo-inline {
       font-size: 1.2rem;
-      font-weight: bold;
-      margin-bottom: 1rem;
-      color: #ffd600;
-      text-shadow: 0 0 6px #b38700;
+      margin-bottom: 2rem;
     }
 
-    #stereoMControls {
+    #reproductorRadioSheylla {
+      margin-top: 3rem;
+    }
+
+    #reproductorRadioSheylla audio {
+      width: 200px;
+      max-width: 90vw;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ffd70066;
+      outline: none;
+    }
+
+    #reproductorRadioSheylla img {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #ffd700aa;
+      flex-shrink: 0;
+    }
+
+    #reproductorRadioSheylla .radio-info {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 2rem;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
 
-    #stereoMControls img {
-      width: 80px;
-      border-radius: 50%;
-      box-shadow: 0 0 15px #ffd700;
-    }
-
-    #stereoMBtnInline {
-      background: linear-gradient(135deg, #ffd600, #ffa500);
-      border: none;
-      border-radius: 50%;
-      width: 80px;
-      height: 80px;
-      cursor: pointer;
-      box-shadow: 0 0 20px #ffb300;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: transform 0.3s ease;
-    }
-
-    #stereoMBtnInline:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 30px #ffb300;
-    }
-
-    #stereoMBtnInline svg {
-      margin-left: 5px;
-      fill: #d9006c;
-    }
-
-    .audio-container {
-      margin: 2.5rem auto;
-      background: rgba(255, 255, 255, 0.15);
-      padding: 2rem;
-      border-radius: 15px;
-      max-width: 420px;
-    }
-
-    audio {
-      width: 100%;
-      margin-bottom: 1rem;
-    }
-
-    .btn-descarga {
-      display: inline-block;
-      padding: 0.7rem 1.5rem;
-      background-color: #fff;
-      color: #d9006c;
-      font-weight: bold;
-      border-radius: 30px;
-      text-decoration: none;
-      transition: background 0.3s;
-    }
-
-    .btn-descarga:hover {
-      background-color: #ffe0ef;
-    }
-
-    .foto-artistica {
-      margin: 3rem 0 1rem;
-    }
-
-    .foto-artistica img {
-      width: 90%;
-      max-width: 500px;
-      border-radius: 20px;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-    }
-
-    .sobre-sheylla {
-      margin: 4rem auto 2rem;
-      max-width: 700px;
-      padding: 0 1.5rem;
-    }
-
-    .sobre-sheylla h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
+    #reproductorRadioSheylla p {
+      margin-bottom: 0.8rem;
+      font-size: 1.1rem;
       color: #fff0f5;
     }
 
-    .sobre-sheylla p {
-      font-size: 1.15rem;
-      line-height: 1.7;
-      color: #fff8fc;
-    }
-
-    .social-buttons {
-      margin: 3rem 0;
-    }
-
-    .social-buttons a {
-      display: inline-block;
-      margin: 0 10px;
-      padding: 0.8rem 1.6rem;
-      background-color: #fff;
-      color: #d9006c;
-      font-weight: bold;
-      border-radius: 30px;
-      text-decoration: none;
-      transition: background 0.3s;
-    }
-
-    .social-buttons a:hover {
-      background-color: #ffe0ef;
-    }
-
-    footer {
-      margin-top: 3rem;
-      padding: 1rem;
-      font-size: 0.9rem;
-      background-color: rgba(0, 0, 0, 0.1);
-    }
-
-    /* Modal del reproductor */
-    #stereoMModal {
-      display: none;
-      position: fixed;
-      bottom: 100px;
-      right: 20px;
-      width: 300px;
-      background: white;
-      color: #000;
-      border-radius: 20px;
-      box-shadow: 0 0 20px #e60000aa;
-      padding: 15px;
-      z-index: 10000;
-      animation: fadeIn 0.5s ease-out;
-    }
-
-    #stereoMModal img {
-      width: 80px;
-      display: block;
-      margin: 0 auto 10px;
-      animation: rebote 2s infinite ease-in-out;
-    }
-
-    #stereoMModal h3 {
-      text-align: center;
-      color: #e60000;
-      margin-bottom: 10px;
-    }
-
-    #stereoMModal audio {
-      width: 100%;
-      border-radius: 10px;
-    }
-
-    #stereoMClose {
-      position: absolute;
-      top: 8px;
-      right: 10px;
-      background: #e60000;
-      border: none;
-      color: white;
-      font-weight: bold;
-      padding: 4px 10px;
-      border-radius: 50%;
-      cursor: pointer;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes rebote {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+    #radio-title {
+      font-size: 0.85rem;
+      margin-top: 4px;
+      color: #ffe8f5;
+      text-align: left;
     }
   </style>
 </head>
 <body>
-
-  <header>
-    <img src="http://imgfz.com/i/TKa7Gp5.png" alt="Logo Sheylla Bernales" class="logo-animado" />
-    <h1>Sheylla Bernales</h1>
+  <div class="contenido">
+    <div class="titulo">Sheylla Bernales</div>
     <div class="subtitulo">Y su Ritmo Rebelde</div>
 
-    <div id="stereoMContainer">
-      <div class="mensaje-stereo-inline">
-        🎧 Escucha mi canción aquí en <strong>Radio Stereo M</strong>
+    <!-- Aquí va el reproductor de radio -->
+    <section id="reproductorRadioSheylla">
+      <p>🎧 Escucha mi canción aquí en <strong>Radio Stereo M</strong>:</p>
+      <div class="radio-info">
+        <img src="https://i.postimg.cc/L8bjb6K5/1687464033296.png" alt="Logo Stereo M" />
+        <div style="display: flex; flex-direction: column; align-items: flex-start;">
+          <audio controls preload="none">
+            <source src="https://sonic.globalstream.pro/8108/stream" type="audio/mpeg">
+            Tu navegador no soporta audio HTML5.
+          </audio>
+          <div id="radio-title">Cargando canción...</div>
+        </div>
       </div>
-
-      <div id="stereoMControls">
-        <img src="https://i.postimg.cc/L8bjb6K5/1687464033296.png" alt="Radio Stereo M" />
-
-        <button id="stereoMBtnInline" title="Escucha Stereo M" aria-label="Reproducir Radio Stereo M">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="40" height="40">
-            <path d="M16 12v40l36-20z"/>
-          </svg>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <section class="audio-container">
-    <h2>🎵 Escucha su primer éxito</h2>
-    <p style="font-size: 1.2rem; color: #fff8fc; margin-bottom: 1rem;">
-      <strong>🎶 "Mal Paso" – Sheylla Bernales</strong>
-    </p>
-    <audio controls>
-      <source src="https://marconyclavijo.github.io/sheyllabernales/MAL%20PASO%20-%20SHEYLLA%20%20BERNALES.mp3" type="audio/mpeg" />
-      Tu navegador no soporta el reproductor de audio.
-    </audio>
-    <a href="https://marconyclavijo.github.io/sheyllabernales/MAL%20PASO%20-%20SHEYLLA%20%20BERNALES.mp3" download class="btn-descarga">Descargar Canción</a>
-  </section>
-
-  <section class="foto-artistica">
-    <img src="http://imgfz.com/i/pJiqYKG.jpeg" alt="Sheylla en escena" />
-  </section>
-
-  <section class="sobre-sheylla">
-    <h2>✨ Conoce a Sheylla</h2>
-    <p>
-      Sheylla Bernales es una artista peruana que desborda pasión, ritmo y autenticidad. Su estilo rebelde y tropical conquista escenarios y corazones. Con su primer sencillo "Mal Paso", Sheylla inicia un viaje musical lleno de energía y emociones. ¡Síguela y siente el poder de su ritmo rebelde!
-    </p>
-  </section>
-
-  <section class="social-buttons">
-    <a href="https://www.facebook.com/profile.php?id=61556702668300" target="_blank">🌐 Facebook</a>
-    <a href="https://wa.me/51964673979?text=Hola%20Sheylla%2C%20escuch%C3%A9%20tu%20m%C3%BAsica%20y%20me%20encant%C3%B3.%20%C2%A1Quisiera%20saber%20m%C3%A1s!" target="_blank">📱 WhatsApp</a>
-  </section>
-
-  <footer>
-    Diseño y desarrollo web por Marcony Clavijo | Innovación que conecta.
-  </footer>
-
-  <!-- Modal con reproductor -->
-  <div id="stereoMModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
-    <button id="stereoMClose" aria-label="Cerrar reproductor">×</button>
-    <img src="https://i.postimg.cc/L8bjb6K5/1687464033296.png" alt="Logo Stereo M" />
-    <h3 id="modalTitle">Radio Stereo M</h3>
-    <audio controls autoplay>
-      <source src="https://sonic.globalstream.pro/8108/stream" type="audio/mpeg" />
-      Tu navegador no soporta audio HTML5.
-    </audio>
+    </section>
   </div>
 
   <script>
-    const btnStereoM = document.getElementById('stereoMBtnInline');
-    const modal = document.getElementById('stereoMModal');
-    const btnClose = document.getElementById('stereoMClose');
-
-    btnStereoM.addEventListener('click', () => {
-      modal.style.display = 'block';
-      modal.focus();
-    });
-
-    btnClose.addEventListener('click', () => {
-      modal.style.display = 'none';
-      btnStereoM.focus();
-    });
-
-    // Cerrar modal con tecla Escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.style.display === 'block') {
-        modal.style.display = 'none';
-        btnStereoM.focus();
+    async function fetchRadioTitle() {
+      try {
+        const proxy = "https://api.allorigins.win/get?url=";
+        const url = encodeURIComponent("http://sonic.globalstream.pro:8108/stats?sid=1&json=1&nocache=" + Date.now());
+        const res = await fetch(proxy + url);
+        const data = await res.json();
+        const parsed = JSON.parse(data.contents);
+        document.getElementById('radio-title').textContent = parsed.songtitle || "Sin título";
+      } catch (e) {
+        document.getElementById('radio-title').textContent = "Error al cargar título";
       }
-    });
+    }
+
+    fetchRadioTitle();
+    setInterval(fetchRadioTitle, 5000);
   </script>
 </body>
 </html>
