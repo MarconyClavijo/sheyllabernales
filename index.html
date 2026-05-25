@@ -1,75 +1,84 @@
-export default function App() { const productos = [ { nombre: 'Pilsen', cajas: 5, unidades: 60, vendidas: 0, precio: 7, }, { nombre: 'Cristal', cajas: 2, unidades: 24, vendidas: 0, precio: 7, }, ];
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Económica Market</title>
 
-const totalStock = productos.reduce((a, b) => a + b.unidades, 0);
+<style>
+body{
+font-family: Arial;
+background:#fff8dc;
+padding:20px;
+}
 
-return ( <div className="min-h-screen bg-yellow-50 p-6"> <div className="max-w-4xl mx-auto"> <div className="bg-white rounded-3xl shadow-xl p-6 mb-6"> <h1 className="text-3xl font-bold text-center mb-2"> La Económica Market </h1> <p className="text-center text-gray-500"> Control básico de cerveza </p> </div>
+.card{
+background:white;
+padding:20px;
+border-radius:20px;
+margin-bottom:20px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
 
-<div className="grid md:grid-cols-3 gap-4 mb-6">
-      <div className="bg-white rounded-2xl shadow p-5 text-center">
-        <h2 className="text-lg font-semibold">Stock Total</h2>
-        <p className="text-3xl font-bold mt-2">{totalStock}</p>
-        <p className="text-gray-500">unidades</p>
-      </div>
+h1{
+text-align:center;
+}
 
-      <div className="bg-white rounded-2xl shadow p-5 text-center">
-        <h2 className="text-lg font-semibold">Pilsen</h2>
-        <p className="text-3xl font-bold mt-2">60</p>
-        <p className="text-gray-500">unidades</p>
-      </div>
+button{
+padding:10px 20px;
+border:none;
+border-radius:10px;
+background:green;
+color:white;
+font-size:16px;
+margin-top:10px;
+}
 
-      <div className="bg-white rounded-2xl shadow p-5 text-center">
-        <h2 className="text-lg font-semibold">Cristal</h2>
-        <p className="text-3xl font-bold mt-2">24</p>
-        <p className="text-gray-500">unidades</p>
-      </div>
-    </div>
+input{
+padding:10px;
+width:60px;
+font-size:16px;
+}
+</style>
+</head>
 
-    <div className="bg-white rounded-3xl shadow-xl p-6">
-      <h2 className="text-2xl font-bold mb-4">Control de Ventas</h2>
+<body>
 
-      <div className="overflow-x-auto">
-        <table className="w-full border-collapse">
-          <thead>
-            <tr className="bg-yellow-100">
-              <th className="p-3 text-left">Producto</th>
-              <th className="p-3 text-center">Cajas</th>
-              <th className="p-3 text-center">Stock</th>
-              <th className="p-3 text-center">Precio</th>
-              <th className="p-3 text-center">Vendidas</th>
-              <th className="p-3 text-center">Ingreso</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {productos.map((item, index) => (
-              <tr key={index} className="border-b">
-                <td className="p-3 font-semibold">{item.nombre}</td>
-                <td className="p-3 text-center">{item.cajas}</td>
-                <td className="p-3 text-center">{item.unidades}</td>
-                <td className="p-3 text-center">S/{item.precio}</td>
-                <td className="p-3 text-center">{item.vendidas}</td>
-                <td className="p-3 text-center">
-                  S/{item.vendidas * item.precio}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div className="bg-white rounded-3xl shadow-xl p-6 mt-6">
-      <h2 className="text-2xl font-bold mb-4">Ideas para mejorar</h2>
-
-      <ul className="space-y-2 text-gray-700">
-        <li>✅ Agregar botón para registrar ventas</li>
-        <li>✅ Control de fiados</li>
-        <li>✅ Historial diario</li>
-        <li>✅ Ganancias automáticas</li>
-        <li>✅ Productos adicionales</li>
-      </ul>
-    </div>
-  </div>
+<div class="card">
+<h1>La Económica Market</h1>
+<p>Control de cerveza</p>
 </div>
 
-); }
+<div class="card">
+<h2>Pilsen</h2>
+<p>Stock: <span id="pilsen">60</span></p>
+<input type="number" id="ventaPilsen">
+<button onclick="venderPilsen()">Vender</button>
+</div>
+
+<div class="card">
+<h2>Cristal</h2>
+<p>Stock: <span id="cristal">24</span></p>
+<input type="number" id="ventaCristal">
+<button onclick="venderCristal()">Vender</button>
+</div>
+
+<script>
+let stockPilsen = 60;
+let stockCristal = 24;
+
+function venderPilsen(){
+let cantidad = document.getElementById("ventaPilsen").value;
+stockPilsen -= Number(cantidad);
+document.getElementById("pilsen").innerText = stockPilsen;
+}
+
+function venderCristal(){
+let cantidad = document.getElementById("ventaCristal").value;
+stockCristal -= Number(cantidad);
+document.getElementById("cristal").innerText = stockCristal;
+}
+</script>
+
+</body>
+</html>
