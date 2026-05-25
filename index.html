@@ -6,78 +6,260 @@
 <title>La Económica Market</title>
 
 <style>
+
 body{
-font-family: Arial;
-background:#fff8dc;
+font-family: Arial, sans-serif;
+background: linear-gradient(to bottom,#fff7cc,#ffe9b3);
 padding:20px;
+margin:0;
+}
+
+.container{
+max-width:900px;
+margin:auto;
 }
 
 .card{
 background:white;
-padding:20px;
 border-radius:20px;
+padding:20px;
 margin-bottom:20px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
 
 h1{
 text-align:center;
+color:#ff6600;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
+}
+
+.box{
+padding:20px;
+border-radius:20px;
+color:white;
+}
+
+.yellow{
+background:#ffb300;
+}
+
+.green{
+background:#1db954;
+}
+
+.blue{
+background:#2196f3;
+}
+
+.producto{
+border:2px solid #eee;
+padding:20px;
+border-radius:20px;
+margin-bottom:15px;
 }
 
 button{
-padding:10px 20px;
-border:none;
-border-radius:10px;
-background:green;
+background:#ff6600;
 color:white;
+border:none;
+padding:12px 20px;
+border-radius:12px;
 font-size:16px;
 margin-top:10px;
+width:100%;
 }
 
 input{
+width:100%;
 padding:10px;
-width:60px;
 font-size:16px;
+border-radius:10px;
+border:1px solid #ccc;
+margin-top:10px;
 }
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+padding:12px;
+border-bottom:1px solid #ddd;
+text-align:left;
+}
+
+th{
+background:#ffe0b3;
+}
+
 </style>
 </head>
 
 <body>
 
+<div class="container">
+
 <div class="card">
-<h1>La Económica Market</h1>
-<p>Control de cerveza</p>
+<h1>🍺 La Económica Market</h1>
+<p style="text-align:center;">Sistema de control de cerveza</p>
+
+<div class="grid">
+
+<div class="box yellow">
+<h2>Stock Total</h2>
+<h1 id="stockTotal">84</h1>
+</div>
+
+<div class="box green">
+<h2>Ventas</h2>
+<h1>S/<span id="ventas">0</span></h1>
+</div>
+
+<div class="box blue">
+<h2>Ganancia</h2>
+<h1>S/<span id="ganancia">0</span></h1>
+</div>
+
+</div>
 </div>
 
 <div class="card">
-<h2>Pilsen</h2>
-<p>Stock: <span id="pilsen">60</span></p>
-<input type="number" id="ventaPilsen">
-<button onclick="venderPilsen()">Vender</button>
+
+<h2>Productos</h2>
+
+<div class="producto">
+<h3>Pilsen</h3>
+<p>Stock: <span id="pilsenStock">60</span></p>
+<p>Precio venta: S/7</p>
+
+<input type="number" id="ventaPilsen" placeholder="Cantidad vendida">
+
+<button onclick="venderPilsen()">Registrar Venta</button>
+</div>
+
+<div class="producto">
+<h3>Cristal</h3>
+<p>Stock: <span id="cristalStock">24</span></p>
+<p>Precio venta: S/7</p>
+
+<input type="number" id="ventaCristal" placeholder="Cantidad vendida">
+
+<button onclick="venderCristal()">Registrar Venta</button>
+</div>
+
 </div>
 
 <div class="card">
-<h2>Cristal</h2>
-<p>Stock: <span id="cristal">24</span></p>
-<input type="number" id="ventaCristal">
-<button onclick="venderCristal()">Vender</button>
+
+<h2>Historial de Ventas</h2>
+
+<table>
+
+<thead>
+<tr>
+<th>Fecha</th>
+<th>Producto</th>
+<th>Cantidad</th>
+<th>Total</th>
+</tr>
+</thead>
+
+<tbody id="historial">
+</tbody>
+
+</table>
+
+</div>
+
 </div>
 
 <script>
-let stockPilsen = 60;
-let stockCristal = 24;
+
+let pilsen = 60;
+let cristal = 24;
+
+let ventas = 0;
+let ganancia = 0;
+
+function actualizar(){
+
+document.getElementById("pilsenStock").innerText = pilsen;
+
+document.getElementById("cristalStock").innerText = cristal;
+
+document.getElementById("stockTotal").innerText = pilsen + cristal;
+
+document.getElementById("ventas").innerText = ventas;
+
+document.getElementById("ganancia").innerText = ganancia;
+
+}
+
+function agregarHistorial(producto,cantidad,total){
+
+let fecha = new Date().toLocaleDateString();
+
+let fila = `
+<tr>
+<td>${fecha}</td>
+<td>${producto}</td>
+<td>${cantidad}</td>
+<td>S/${total}</td>
+</tr>
+`;
+
+document.getElementById("historial").innerHTML += fila;
+
+}
 
 function venderPilsen(){
-let cantidad = document.getElementById("ventaPilsen").value;
-stockPilsen -= Number(cantidad);
-document.getElementById("pilsen").innerText = stockPilsen;
+
+let cantidad = Number(document.getElementById("ventaPilsen").value);
+
+if(cantidad > pilsen){
+alert("No hay suficiente stock");
+return;
+}
+
+pilsen -= cantidad;
+
+ventas += cantidad * 7;
+
+ganancia += cantidad * 2;
+
+agregarHistorial("Pilsen",cantidad,cantidad*7);
+
+actualizar();
+
 }
 
 function venderCristal(){
-let cantidad = document.getElementById("ventaCristal").value;
-stockCristal -= Number(cantidad);
-document.getElementById("cristal").innerText = stockCristal;
+
+let cantidad = Number(document.getElementById("ventaCristal").value);
+
+if(cantidad > cristal){
+alert("No hay suficiente stock");
+return;
 }
+
+cristal -= cantidad;
+
+ventas += cantidad * 7;
+
+ganancia += cantidad * 2;
+
+agregarHistorial("Cristal",cantidad,cantidad*7);
+
+actualizar();
+
+}
+
 </script>
 
 </body>
