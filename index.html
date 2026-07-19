@@ -60,21 +60,72 @@ h2{color:var(--azul-principal);margin-bottom:15px;}
 </header>
 <main class="main-content">
   <section id="sec-inicio" class="page-section active-section">
-    <div class="card"><h2>🎧 Bienvenido a Stereo M</h2><p>Aquí irá el reproductor principal estilo Spotify, tu App y botones de WhatsApp.</p></div>
-    <div class="card"><h2>🎉 Próximos Eventos</h2><p>Aquí irá el slider automático con los flyers de Sullana.</p></div>
-  </section>
-  <section id="sec-noticias" class="page-section">
-    <div class="card"><h2>📰 Últimas Noticias</h2><p>Aquí crearemos las tarjetas informativas conectadas a Facebook.</p></div>
-  </section>
-  <section id="sec-galeria" class="page-section">
-    <div class="card"><h2>📸 Galería Social</h2><p>Aquí organizaremos las fotos de las campañas navideñas y de apoyo social.</p></div>
-  </section>
-  <section id="sec-programacion" class="page-section">
-    <div class="card"><h2>📅 Nuestra Programación</h2><p>Aquí colocaremos las fotos de los locutores con sus horarios automáticos.</p></div>
-  </section>
-  <section id="sec-historia" class="page-section">
-    <div class="card"><h2>📖 Nuestra Historia</h2><p>Aquí irá el resumen de la trayectoria y origen de la radio.</p></div>
-  </section>
+  <!-- ESTILOS INTERNOS DE LA PESTAÑA INICIO -->
+  <style>
+    .player-premium{text-align:center;background:linear-gradient(135deg, #0b3d91, #062357);color:#fff;border-radius:20px;padding:25px;margin-bottom:20px;box-shadow:0 6px 18px rgba(11,61,145,0.25);}
+    .player-cover{width:140px;height:140px;border-radius:18px;margin:0 auto 15px;display:block;box-shadow:0 8px 20px rgba(0,0,0,0.3);border:3px solid rgba(255,255,255,0.2);}
+    .player-title{font-size:18px;font-weight:700;margin-bottom:5px;color:#fff;}
+    .player-subtitle{font-size:13px;color:#ffd700;font-weight:bold;letter-spacing:0.5px;margin-bottom:20px;}
+    .saludos-container{background:rgba(255,255,255,0.1);padding:15px;border-radius:12px;margin-top:15px;border:1px solid rgba(255,255,255,0.15);}
+    .saludos-title{font-size:13px;font-weight:bold;margin-bottom:8px;color:#ffd700;text-transform:uppercase;}
+    .saludos-input{width:100%;padding:10px 12px;border-radius:8px;border:none;font-family:inherit;font-size:14px;margin-bottom:10px;outline:none;background:#fff;color:#222;}
+    .btn-saludo{background:#ffd700;color:#111;border:none;padding:10px;width:100%;border-radius:8px;font-weight:bold;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;gap:6px;}
+    .btn-saludo:active{transform:scale(0.98);}
+    .grid-botones{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
+    .btn-social{display:flex;flex-direction:column;align-items:center;justify-content:center;text-decoration:none;padding:15px 10px;border-radius:16px;font-weight:bold;font-size:13px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.08);transition:transform 0.1s;}
+    .btn-social:active{transform:scale(0.96);}
+    .btn-app{background:#ffd700;color:#111;grid-column:span 2;}
+    .btn-fb{background:#ffffff;color:#1877f2;border:1px solid #e2e8f0;}
+    .btn-pub{background:#ffffff;color:#0b3d91;border:1px solid #e2e8f0;}
+    .btn-social span{font-size:20px;margin-bottom:4px;}
+  </style>
+
+  <!-- REPRODUCTOR ESTILO SPOTIFY CON CAJA DE SALUDOS -->
+  <div class="player-premium">
+    <img class="player-cover" src="https://postimg.cc" alt="Stereo M">
+    <div class="player-title">Radio Stereo M 101.5</div>
+    <div class="player-subtitle">🎵 LA VOZ DE SULLANA PARA EL MUNDO</div>
+    
+    <div class="saludos-container">
+      <div class="saludos-title">💬 Envía tus saludos en vivo</div>
+      <input type="text" id="txtSaludo" class="saludos-input" placeholder="Escribe tu nombre y tu saludo aquí...">
+      <button class="btn-saludo" onclick="enviarSaludoCabina()">🎤 Enviar a Cabina</button>
+    </div>
+  </div>
+
+  <!-- BOTONES DE REDES Y APLICATIVO FUERA DEL REPRODUCTOR -->
+  <div class="grid-botones">
+    <a href="https://google.com" target="_blank" class="btn-social btn-app">
+      <span>📲</span> Descargar Aplicativo Oficial
+    </a>
+    <a href="https://facebook.com" target="_blank" class="btn-social btn-fb">
+      <span>📘</span> Facebook Radio
+    </a>
+    <a href="https://wa.me" target="_blank" class="btn-social btn-pub">
+      <span>📢</span> Publicidad Aquí
+    </a>
+  </div>
+
+  <!-- SECCIÓN DE EVENTOS -->
+  <div class="card">
+    <h2>🎉 Próximos Eventos</h2>
+    <p>Aquí irá el slider automático con los flyers de Sullana.</p>
+  </div>
+
+  <!-- FUNCIÓN JAVASCRIPT EXCLUSIVA PARA EL ENVÍO DE SALUDOS -->
+  <script>
+    function enviarSaludoCabina(){
+      var texto = document.getElementById("txtSaludo").value.trim();
+      if(texto === ""){
+        alert("Por favor, escribe un saludo antes de enviar.");
+        return;
+      }
+      var mensajeUrl = encodeURIComponent("👋 Hola Stereo M, quiero mandar un saludo en vivo: " + texto);
+      var numeroWhatsApp = "51984412853"; // WhatsApp de Oyentes
+      window.open("https://wa.me" + numeroWhatsApp + "?text=" + mensajeUrl, "_blank");
+    }
+  </script>
+</section>
 </main>
 <div class="radio-base">
   <div class="base-left">
