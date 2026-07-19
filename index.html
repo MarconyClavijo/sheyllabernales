@@ -60,19 +60,21 @@ h2{color:var(--azul-principal);margin-bottom:15px;}
 </header>
 <main class="main-content">
   <section id="sec-inicio" class="page-section active-section">
-  <!-- ESTILOS INTERNOS DE LA PESTAÑA INICIO -->
   <style>
     .player-premium{text-align:center;background:linear-gradient(135deg, #0b3d91, #062357);color:#fff;border-radius:20px;padding:25px;margin-bottom:20px;box-shadow:0 6px 18px rgba(11,61,145,0.25);}
-    .player-cover{width:140px;height:140px;border-radius:18px;margin:0 auto 15px;display:block;box-shadow:0 8px 20px rgba(0,0,0,0.3);border:3px solid rgba(255,255,255,0.2);}
-    .player-title{font-size:18px;font-weight:700;margin-bottom:5px;color:#fff;}
-    .player-subtitle{font-size:13px;color:#ffd700;font-weight:bold;letter-spacing:0.5px;margin-bottom:20px;}
-    .saludos-container{background:rgba(255,255,255,0.1);padding:15px;border-radius:12px;margin-top:15px;border:1px solid rgba(255,255,255,0.15);}
-    .saludos-title{font-size:13px;font-weight:bold;margin-bottom:8px;color:#ffd700;text-transform:uppercase;}
-    .saludos-input{width:100%;padding:10px 12px;border-radius:8px;border:none;font-family:inherit;font-size:14px;margin-bottom:10px;outline:none;background:#fff;color:#222;}
-    .btn-saludo{background:#ffd700;color:#111;border:none;padding:10px;width:100%;border-radius:8px;font-weight:bold;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;gap:6px;}
-    .btn-saludo:active{transform:scale(0.98);}
+    .player-cover{width:160px;height:160px;border-radius:18px;margin:0 auto 12px;display:block;box-shadow:0 8px 20px rgba(0,0,0,0.35);border:3px solid rgba(255,255,255,0.2);object-fit:cover;}
+    .player-title{font-size:19px;font-weight:700;margin-bottom:4px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .player-artist{font-size:14px;color:#ffd700;font-weight:bold;margin-bottom:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .player-locutor{font-size:12px;background:rgba(255,255,255,0.15);padding:4px 12px;border-radius:20px;display:inline-block;margin-bottom:18px;font-weight:bold;border:1px solid rgba(255,255,255,0.1);}
+    .player-controls{display:flex;justify-content:center;align-items:center;gap:20px;margin-bottom:20px;}
+    .btn-main-audio{background:#ffd700;border:none;width:56px;height:56px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(0,0,0,0.3);}
+    .btn-main-audio:active{transform:scale(0.95);}
+    .saludos-container{background:rgba(255,255,255,0.08);padding:15px;border-radius:12px;margin-top:5px;border:1px solid rgba(255,255,255,0.12);}
+    .saludos-title{font-size:12px;font-weight:bold;margin-bottom:8px;color:#ffd700;text-transform:uppercase;letter-spacing:0.5px;}
+    .saludos-input{width:100%;padding:10px 12px;border-radius:8px;border:none;font-size:14px;margin-bottom:10px;outline:none;background:#fff;color:#222;}
+    .btn-saludo{background:#ffd700;color:#111;border:none;padding:10px;width:100%;border-radius:8px;font-weight:bold;cursor:pointer;font-size:14px;}
     .grid-botones{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
-    .btn-social{display:flex;flex-direction:column;align-items:center;justify-content:center;text-decoration:none;padding:15px 10px;border-radius:16px;font-weight:bold;font-size:13px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.08);transition:transform 0.1s;}
+    .btn-social{display:flex;flex-direction:column;align-items:center;justify-content:center;text-decoration:none;padding:15px 10px;border-radius:16px;font-weight:bold;font-size:13px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.08);}
     .btn-social:active{transform:scale(0.96);}
     .btn-app{background:#ffd700;color:#111;grid-column:span 2;}
     .btn-fb{background:#ffffff;color:#1877f2;border:1px solid #e2e8f0;}
@@ -80,12 +82,22 @@ h2{color:var(--azul-principal);margin-bottom:15px;}
     .btn-social span{font-size:20px;margin-bottom:4px;}
   </style>
 
-  <!-- REPRODUCTOR ESTILO SPOTIFY CON CAJA DE SALUDOS -->
+  <!-- REPRODUCTOR COMPLETO ESTILO SPOTIFY -->
   <div class="player-premium">
-    <img class="player-cover" src="https://postimg.cc" alt="Stereo M">
-    <div class="player-title">Radio Stereo M 101.5</div>
-    <div class="player-subtitle">🎵 LA VOZ DE SULLANA PARA EL MUNDO</div>
+    <!-- Carátula de Sonic Panel o Respaldo automático si no hay canción registrada -->
+    <img id="main-cover" class="player-cover" src="https://postimg.cc" alt="Carátula">
+    <div id="main-song-title" class="player-title">Cargando canción...</div>
+    <div class="player-artist">📻 EN VIVO por Stereo M</div>
+    <div id="main-locutor-lbl" class="player-locutor">🎙️ Al aire: Cargando...</div>
     
+    <!-- Botonera Central del Reproductor -->
+    <div class="player-controls">
+      <button class="btn-main-audio" onclick="toggleAudio()" id="btnMainPlay" title="Reproducir">
+        <div class="icon-play" id="mainAudioIcon"></div>
+      </button>
+    </div>
+    
+    <!-- Caja de Saludos Integrada -->
     <div class="saludos-container">
       <div class="saludos-title">💬 Envía tus saludos en vivo</div>
       <input type="text" id="txtSaludo" class="saludos-input" placeholder="Escribe tu nombre y tu saludo aquí...">
@@ -93,37 +105,53 @@ h2{color:var(--azul-principal);margin-bottom:15px;}
     </div>
   </div>
 
-  <!-- BOTONES DE REDES Y APLICATIVO FUERA DEL REPRODUCTOR -->
+  <!-- BOTONES EXTERNOS -->
   <div class="grid-botones">
-    <a href="https://google.com" target="_blank" class="btn-social btn-app">
-      <span>📲</span> Descargar Aplicativo Oficial
-    </a>
-    <a href="https://facebook.com" target="_blank" class="btn-social btn-fb">
-      <span>📘</span> Facebook Radio
-    </a>
-    <a href="https://wa.me" target="_blank" class="btn-social btn-pub">
-      <span>📢</span> Publicidad Aquí
-    </a>
+    <a href="https://google.com" target="_blank" class="btn-social btn-app"><span>📲</span> Descargar Aplicativo Oficial</a>
+    <a href="https://facebook.com" target="_blank" class="btn-social btn-fb"><span>📘</span> Facebook Radio</a>
+    <a href="https://wa.me" target="_blank" class="btn-social btn-pub"><span>📢</span> Publicidad Aquí</a>
   </div>
 
-  <!-- SECCIÓN DE EVENTOS -->
+  <!-- PRÓXIMOS EVENTOS -->
   <div class="card">
     <h2>🎉 Próximos Eventos</h2>
     <p>Aquí irá el slider automático con los flyers de Sullana.</p>
   </div>
 
-  <!-- FUNCIÓN JAVASCRIPT EXCLUSIVA PARA EL ENVÍO DE SALUDOS -->
   <script>
     function enviarSaludoCabina(){
       var texto = document.getElementById("txtSaludo").value.trim();
-      if(texto === ""){
-        alert("Por favor, escribe un saludo antes de enviar.");
-        return;
-      }
-      var mensajeUrl = encodeURIComponent("👋 Hola Stereo M, quiero mandar un saludo en vivo: " + texto);
-      var numeroWhatsApp = "51984412853"; // WhatsApp de Oyentes
-      window.open("https://wa.me" + numeroWhatsApp + "?text=" + mensajeUrl, "_blank");
+      if(texto === ""){ alert("Por favor, escribe un saludo."); return; }
+      window.open("https://wa.me" + encodeURIComponent("👋 Saludo en vivo: " + texto), "_blank");
     }
+
+    // Sincronización de metadatos e iconos entre el reproductor superior e inferior
+    function sincronizarUIYMetadatos() {
+      // 1. Sincronizar Iconos Play/Stop en base al estado de audioStream
+      const iconSuperior = document.getElementById("mainAudioIcon");
+      const iconInferior = document.getElementById("audioIcon");
+      if (typeof audioStream !== 'undefined' && audioStream !== null) {
+        if(iconSuperior) iconSuperior.className = "icon-stop";
+        if(iconInferior) iconInferior.className = "icon-stop";
+      } else {
+        if(iconSuperior) iconSuperior.className = "icon-play";
+        if(iconInferior) iconInferior.className = "icon-play";
+      }
+
+      // 2. Traer el locutor actual de la barra base al reproductor superior
+      const txtProg = document.getElementById("lbl-programa") ? document.getElementById("lbl-programa").textContent : "";
+      const lblLocTop = document.getElementById("main-locutor-lbl");
+      if(lblLocTop && txtProg) { lblLocTop.textContent = "🎙️ Al aire: " + txtProg; }
+
+      // 3. Consultar la API del streaming para actualizar canción y carátula en vivo
+      // Reemplaza esta simulación con el script de metadatos original de tu proveedor si es necesario
+      if(typeof sonic_data !== "undefined" && sonic_data.songtitle) {
+        document.getElementById("main-song-title").textContent = sonic_data.songtitle;
+      }
+    }
+
+    // Ejecutar la sincronización de manera continua cada segundo
+    setInterval(sincronizarUIYMetadatos, 1000);
   </script>
 </section>
 </main>
