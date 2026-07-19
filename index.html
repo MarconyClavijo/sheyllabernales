@@ -388,19 +388,59 @@
     <!-- CONTROL DE AUDIO (REEMPLAZA POR TU URL REAL) -->
     <audio id="audio-player" src="TU_URL_DE_STREAMING_AQUI"></audio>
 
-    <!-- CABECERA CON MENÚ DE HAMBURGUESA -->
-    <header>
-        <div class="logo-header">
-            Stereo M 101.5
-            <span>Sullana - Piura</span>
+        <!-- CABECERA CONFIGURADA CON TU LOGO REAL Y MENÚ DE HAMBURGUESA -->
+    <header style="position: relative; z-index: 1500; background-color: var(--azul-oscuro); color: var(--blanco); padding: 15px; display: flex; justify-content: space-between; align-items: center;">
+        <div class="logo-header" style="display: flex; align-items: center; gap: 10px;">
+            <!-- Enlace directo a tu logotipo original -->
+            <img src="https://i.postimg.cc/L8bjb6K5/1687464033296.png" alt="Radio Stereo M 101.5" style="width: 45px; height: 45px; object-fit: contain;">
+            <div>
+                <strong style="font-size: 18px; display: block; line-height: 1.2;">Stereo M 101.5</strong>
+                <span style="color: var(--amarillo); display: block; font-size: 13px; font-weight: 500;">Sullana - Piura</span>
+            </div>
         </div>
-        <div class="btn-hamburguesa">
-            <div></div>
-            <div></div>
-            <div></div>
+        
+        <!-- Botón de Hamburguesa con dibujo SVG garantizado -->
+        <div class="btn-hamburguesa" onclick="toggleMenu()" style="cursor: pointer; padding: 5px;">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </div>
+
+        <!-- Menú Desplegable tipo Cortina (Inicio, Historia, Programación, Galería, Noticias) -->
+        <div id="menu-desplegable" style="display: none; position: absolute; top: 100%; right: 0; width: 200px; background-color: var(--azul-oscuro); box-shadow: -4px 4px 10px rgba(0,0,0,0.3); border-radius: 0 0 0 10px; overflow: hidden;">
+            <ul style="list-style: none; margin: 0; padding: 0;">
+                <li style="border-bottom: 1px solid rgba(255,255,255,0.1);"><a href="#inicio" style="display: block; padding: 12px 20px; color: white; text-decoration: none; font-weight: bold; font-size: 15px;">Inicio</a></li>
+                <li style="border-bottom: 1px solid rgba(255,255,255,0.1);"><a href="#historia" style="display: block; padding: 12px 20px; color: white; text-decoration: none; font-weight: bold; font-size: 15px;">Historia</a></li>
+                <li style="border-bottom: 1px solid rgba(255,255,255,0.1);"><a href="#programacion" style="display: block; padding: 12px 20px; color: white; text-decoration: none; font-weight: bold; font-size: 15px;">Programación</a></li>
+                <li style="border-bottom: 1px solid rgba(255,255,255,0.1);"><a href="#galeria" style="display: block; padding: 12px 20px; color: white; text-decoration: none; font-weight: bold; font-size: 15px;">Galería</a></li>
+                <li><a href="#noticias" style="display: block; padding: 12px 20px; color: white; text-decoration: none; font-weight: bold; font-size: 15px;">Noticias</a></li>
+            </ul>
         </div>
     </header>
 
+    <!-- Código Javascript para abrir y cerrar el menú -->
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('menu-desplegable');
+            if (menu.style.display === 'none' || menu.style.display === '') {
+                menu.style.display = 'block';
+            } else {
+                menu.style.display = 'none';
+            }
+        }
+        
+        // Cierra el menú si se hace clic fuera de la cabecera
+        document.addEventListener('click', function(event) {
+            const header = document.querySelector('header');
+            const menu = document.getElementById('menu-desplegable');
+            if (header && !header.contains(event.target) && menu) {
+                menu.style.display = 'none';
+            }
+        });
+    </script>
+    
     <div class="container">
         <!-- CUADRO CENTRAL CON LOS CAMBIOS SOLICITADOS -->
         <div class="cuadro-reproductor-centro">
