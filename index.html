@@ -521,19 +521,23 @@
         </div>
     </div> <!-- Cierre del container -->
 
-    <!-- 4. BARRA INFERIOR ESTABLE (ORIGINAL CON PLAY A LA DERECHA) -->
-<div class="barra-base-radio">
-    <div class="barra-base-izquierda">
-        <div class="logo-circulo-barra"></div>
-        <div class="info-programa-barra">
-            <div class="txt-vivo-barra">● EN VIVO</div>
-            <div class="txt-programa-barra">Tardes activas</div>
+        <!-- 4. BARRA INFERIOR ESTABLE (ORIGINAL CON PLAY A LA DERECHA - ICONO SVG CORREGIDO) -->
+    <div class="barra-base-radio" style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: var(--azul-medio); box-shadow: 0 -4px 10px rgba(0,0,0,0.2); z-index: 1000; box-sizing: border-box; padding: 12px 15px; display: flex; align-items: center; justify-content: space-between; margin-bottom: env(safe-area-inset-bottom, 0px);">
+        <div class="barra-base-izquierda">
+            <!-- Espacio redondo para el logo en miniatura -->
+            <img src="https://postimg.cc" class="logo-circulo-barra" alt="Stereo M" style="width: 35px; height: 35px; border-radius: 50%; object-fit: contain; background-color: var(--azul-oscuro); border: 1px solid rgba(255,255,255,0.2);">
+            <div class="info-programa-barra">
+                <div class="txt-vivo-barra" style="font-size: 11px; font-weight: bold; color: #ff3333; display: flex; align-items: center; gap: 4px;">● EN VIVO</div>
+                <div class="txt-programa-barra" style="font-size: 13px; font-weight: bold; color: white;">Tardes activas</div>
+            </div>
         </div>
+        <button class="btn-play-barra-derecha" onclick="toggleRadio()" style="background-color: var(--amarillo); color: #000; border: none; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+            <!-- Icono Play en SVG que cambia de estado sincronizado -->
+            <svg id="play-icon-barra" width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z"/>
+            </svg>
+        </button>
     </div>
-    <button class="btn-play-barra-derecha" onclick="toggleRadio()">
-        <span class="material-icons" id="play-icon-barra">play_arrow</span>
-    </button>
-</div>
 
 <!-- 5. VISOR LIGHTBOX PARA FLYERS -->
 <div class="lightbox" id="lightbox-visor">
