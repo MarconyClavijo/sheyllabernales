@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stereo M 101.5 - Sullana - Piura</title>
-    <!-- Librería de iconos restaurada y corregida -->
+    <!-- Iconos oficiales para que carguen correctamente -->
     <link href="https://googleapis.com" rel="stylesheet">
     <style>
         :root {
@@ -20,10 +20,10 @@
             padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--gris-claro);
-            padding-bottom: 120px; /* Espacio para que la barra inferior flotante no tape nada */
+            padding-bottom: 90px; /* Espacio exacto para la barra base original */
         }
 
-        /* --- CABECERA DE LA PÁGINA --- */
+        /* --- CABECERA ORIGINAL CON MENÚ EN HAMBURGUESA --- */
         header {
             background-color: var(--azul-oscuro);
             color: var(--blanco);
@@ -41,10 +41,18 @@
             display: block;
             font-size: 14px;
         }
-        .menu-texto {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--blanco);
+        /* Botón de hamburguesa original restaurado */
+        .btn-hamburguesa {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .btn-hamburguesa div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--blanco);
+            border-radius: 2px;
         }
 
         .container {
@@ -54,19 +62,20 @@
             box-sizing: border-box;
         }
 
-        /* --- EL CUADRO REPRODUCTOR PRINCIPAL (RESTAURADO) --- */
-        .cuadro-reproductor-principal {
+        /* --- CUADRO REPRODUCTOR CENTRAL MODIFICADO (Todo en un solo cuadro) --- */
+        .cuadro-reproductor-centro {
             background: linear-gradient(135deg, #002266, #0a2558);
             border-radius: 20px;
-            padding: 25px 20px;
-            text-align: center;
+            padding: 20px;
             color: var(--blanco);
             box-shadow: 0 8px 20px rgba(0,0,0,0.15);
             margin-bottom: 25px;
         }
-        .caratula-grande {
-            width: 180px;
-            height: 180px;
+        
+        /* Portada de la canción centrada arriba como estaba */
+        .portada-cancion-cabecera {
+            width: 160px;
+            height: 160px;
             background-color: rgba(255,255,255,0.1);
             border: 2px solid rgba(255,255,255,0.2);
             border-radius: 15px;
@@ -74,58 +83,74 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
             color: #ccc;
         }
-        .titulo-cargando {
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-        .badge-vivo {
-            display: inline-flex;
+
+        /* Fila horizontal: Play a la izquierda y datos a la derecha para ahorrar espacio */
+        .fila-control-reproductor {
+            display: flex;
             align-items: center;
-            gap: 5px;
-            color: var(--amarillo);
-            font-weight: bold;
-            font-size: 14px;
-            margin-bottom: 12px;
+            gap: 15px;
+            margin-bottom: 20px;
+            text-align: left;
         }
-        .badge-al-aire {
-            background-color: rgba(255,255,255,0.15);
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 13px;
-            display: inline-block;
-            margin-bottom: 25px;
-        }
-        .btn-play-centro {
+        .btn-play-izq {
             background-color: var(--amarillo);
             color: #000;
             border: none;
-            width: 65px;
-            height: 65px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 25px auto;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            flex-shrink: 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
-        .btn-play-centro .material-icons {
-            font-size: 36px;
+        .btn-play-izq .material-icons {
+            font-size: 32px;
         }
-        
-        /* --- BLOQUE DE SALUDOS ORIGINAL DENTRO DEL CUADRO --- */
-        .bloque-saludos-cabina {
-            border-top: 1px solid rgba(255,255,255,0.1);
+        .bloque-textos-streaming {
+            flex: 1;
+            min-width: 0;
+        }
+        .txt-cancion-streaming {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--blanco);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 4px;
+        }
+        .txt-vivo-streaming {
+            font-size: 13px;
+            color: var(--amarillo);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 4px;
+        }
+        .txt-al-aire-streaming {
+            background-color: rgba(255,255,255,0.15);
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            display: inline-block;
+        }
+
+        /* Bloque de saludos abajo dentro del mismo cuadro */
+        .bloque-saludos-interno {
+            border-top: 1px solid rgba(255,255,255,0.15);
             padding-top: 15px;
+            text-align: center;
         }
-        .titulo-saludos {
+        .txt-saludos-titulo {
             font-size: 12px;
             font-weight: bold;
-            color: #fff;
+            color: var(--amarillo);
             letter-spacing: 1px;
             margin-bottom: 10px;
             display: flex;
@@ -133,7 +158,7 @@
             justify-content: center;
             gap: 5px;
         }
-        .input-cabina {
+        .input-saludo-centro {
             width: 100%;
             padding: 12px;
             border-radius: 8px;
@@ -142,7 +167,7 @@
             font-size: 14px;
             box-sizing: border-box;
         }
-        .btn-enviar-cabina {
+        .btn-saludo-centro {
             background-color: var(--amarillo);
             color: #000;
             border: none;
@@ -158,7 +183,7 @@
             gap: 5px;
         }
 
-        /* --- NUEVA SECCIÓN: ENTÉRATE DE LOS PRÓXIMOS EVENTOS --- */
+        /* --- SECCIÓN DE EVENTOS --- */
         .seccion-eventos {
             background: var(--blanco);
             padding: 15px;
@@ -195,7 +220,7 @@
             background-color: #e0e0e0;
         }
 
-        /* --- NUEVA SECCIÓN: HISTORIAL DE CANCIONES (ABAJO DE EVENTOS) --- */
+                /* --- HISTORIAL DE CANCIONES (ABAJO DE EVENTOS) --- */
         .seccion-historial {
             background: var(--blanco);
             padding: 15px;
@@ -236,7 +261,7 @@
             text-overflow: ellipsis;
         }
 
-        /* --- BLOQUES FINALES DE DESCARGA Y PUBLICIDAD --- */
+        /* --- BLOQUES DE DESCARGA Y PUBLICIDAD --- */
         .boton-app {
             background-color: var(--amarillo);
             color: #000;
@@ -268,59 +293,64 @@
             color: var(--azul-medio);
         }
 
-        /* --- BARRA REPRODUCTORA FIJA INFERIOR UNIFICADA --- */
-        .reproductor-fijo {
+        /* --- BARRA BASE ORIGINAL DE LA RADIO (RESTAURADA CON PLAY A LA DERECHA) --- */
+        .barra-base-radio {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            background-color: var(--azul-oscuro);
-            box-shadow: 0 -4px 10px rgba(0,0,0,0.25);
+            background-color: var(--azul-medio);
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.2);
             z-index: 1000;
             box-sizing: border-box;
-            padding: 10px 15px;
-            border-top: 2px solid var(--azul-medio);
-        }
-        .reproductor-wrapper {
-            max-width: 600px;
-            margin: 0 auto;
+            padding: 12px 15px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            justify-content: space-between;
         }
-        .btn-play-barra {
+        .barra-base-izquierda {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--blanco);
+        }
+        .logo-circulo-barra {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: var(--azul-oscuro);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .info-programa-barra {
+            color: var(--blanco);
+        }
+        .txt-vivo-barra {
+            font-size: 11px;
+            font-weight: bold;
+            color: #ff3333;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .txt-programa-barra {
+            font-size: 13px;
+            font-weight: bold;
+        }
+        .btn-play-barra-derecha {
             background-color: var(--amarillo);
             color: #000;
             border: none;
-            width: 44px;
-            height: 44px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            flex-shrink: 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-        .info-reproductor-barra {
-            flex: 1;
-            min-width: 0;
-            color: var(--blanco);
-        }
-        .info-cancion-barra {
-            font-size: 13px;
-            font-weight: bold;
-            color: var(--amarillo);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .info-programa-barra {
-            font-size: 11px;
-            color: #ccc;
-            margin-top: 1px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
+        .btn-play-barra-derecha .material-icons {
+            font-size: 28px;
         }
 
         /* --- VISOR LIGHTBOX PARA FLYERS --- */
@@ -355,47 +385,59 @@
 </head>
 <body>
 
+    <!-- CONTROL DE AUDIO (REEMPLAZA POR TU URL REAL) -->
+    <audio id="audio-player" src="TU_URL_DE_STREAMING_AQUI"></audio>
+
+    <!-- CABECERA CON MENÚ DE HAMBURGUESA -->
     <header>
         <div class="logo-header">
             Stereo M 101.5
             <span>Sullana - Piura</span>
         </div>
-        <div class="menu-texto">menu</div>
+        <div class="btn-hamburguesa">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     </header>
 
     <div class="container">
-        <!-- CUADRO REPRODUCTOR PRINCIPAL RESTAURADO -->
-        <div class="cuadro-reproductor-principal">
-            <div class="caratula-grande">
-                <span>Caratula</span>
+        <!-- CUADRO CENTRAL CON LOS CAMBIOS SOLICITADOS -->
+        <div class="cuadro-reproductor-centro">
+            <!-- Portada de la canción arriba como estaba -->
+            <div class="portada-cancion-cabecera">
+                <span style="font-size: 13px;">Caratula</span>
             </div>
             
-            <div class="titulo-cargando">Cargando canción...</div>
-            
-            <div class="badge-vivo">
-                <span class="material-icons" style="font-size:16px;">radio</span> EN VIVO por Stereo M
-            </div>
-            
-            <div>
-                <div class="badge-al-aire">🎙️ Al aire: Tardes activas</div>
+            <!-- Fila compacta: Play a la izquierda y textos a la derecha -->
+            <div class="fila-control-reproductor">
+                <button class="btn-play-izq" onclick="toggleRadio()">
+                    <span class="material-icons" id="play-icon-centro">play_arrow</span>
+                </button>
+                <div class="bloque-textos-streaming">
+                    <div class="txt-cancion-streaming" id="radio-cancion-centro">Cargando canción...</div>
+                    <div class="txt-vivo-streaming">
+                        <span class="material-icons" style="font-size:15px;">radio</span> EN VIVO por Stereo M
+                    </div>
+                    <div>
+                        <div class="txt-al-aire-streaming">🎙️ Al aire: Tardes activas</div>
+                    </div>
+                </div>
             </div>
 
-            <button class="btn-play-centro" onclick="toggleRadio()">
-                <span class="material-icons">play_arrow</span>
-            </button>
-
-            <div class="bloque-saludos-cabina">
-                <div class="titulo-saludos">
+            <!-- Caja de saludos fija abajo dentro del mismo cuadro -->
+            <div class="bloque-saludos-interno">
+                <div class="txt-saludos-titulo">
                     <span class="material-icons" style="font-size:14px;">chat</span> ENVÍA TUS SALUDOS EN VIVO
                 </div>
-                <input type="text" class="input-cabina" id="txt-saludo-cabina" placeholder="Escribe tu nombre y saludo aquí...">
-                <button class="btn-enviar-cabina" onclick="enviarSaludoCabina()">
+                <input type="text" class="input-saludo-centro" id="txt-saludo-cabina" placeholder="Escribe tu nombre y saludo aquí...">
+                <button class="btn-saludo-centro" onclick="enviarSaludoCabina()">
                     <span class="material-icons" style="font-size:16px;">mic</span> Enviar a Cabina
                 </button>
             </div>
         </div>
 
-        <!-- SECCIÓN DE EVENTOS ANTES QUE EL HISTORIAL -->
+        <!-- 2. SECCIÓN DE EVENTOS -->
         <div class="seccion-eventos">
             <div class="titulo-seccion">Entérate de los próximos eventos</div>
             <div class="carrusel-container">
@@ -408,7 +450,7 @@
             </div>
         </div>
 
-        <!-- HISTORIAL DE CANCIONES ABAJO DE EVENTOS -->
+        <!-- 3. HISTORIAL DE CANCIONES (ABAJO DE EVENTOS) -->
         <div class="seccion-historial">
             <div class="titulo-seccion">Historial de canciones</div>
             <div class="grid-historial">
@@ -420,6 +462,7 @@
             </div>
         </div>
 
+        <!-- BOTONES FINALES -->
         <a href="#" class="boton-app">
             <span class="material-icons">phone_android</span> Descargar Aplicativo Oficial
         </a>
@@ -430,59 +473,64 @@
         </div>
     </div> <!-- Cierre del container -->
 
-    <!-- BARRA REPRODUCTORA FIJA DELGADA ABAJO -->
-    <div class="reproductor-fijo">
-        <div class="reproductor-wrapper">
-            <button class="btn-play-barra" onclick="toggleRadio()">
-                <span class="material-icons" id="play-icon-barra">play_arrow</span>
-            </button>
-            <div class="info-reproductor-barra">
-                <div class="info-cancion-barra" id="radio-cancion-barra">Cargando canción...</div>
-                <div class="info-programa-barra">
-                    <span style="color:red; font-size:8px;">●</span> EN VIVO Tardes activas
-                </div>
-            </div>
+    <!-- 4. BARRA INFERIOR ESTABLE (ORIGINAL CON PLAY A LA DERECHA) -->
+<div class="barra-base-radio">
+    <div class="barra-base-izquierda">
+        <div class="logo-circulo-barra"></div>
+        <div class="info-programa-barra">
+            <div class="txt-vivo-barra">● EN VIVO</div>
+            <div class="txt-programa-barra">Tardes activas</div>
         </div>
     </div>
+    <button class="btn-play-barra-derecha" onclick="toggleRadio()">
+        <span class="material-icons" id="play-icon-barra">play_arrow</span>
+    </button>
+</div>
 
-    <!-- LIGHTBOX PARA FLYERS -->
-    <div class="lightbox" id="lightbox-visor">
-        <button class="lightbox-close" onclick="cerrarFlyer()">&times;</button>
-        <img class="lightbox-content" id="img-ampliada" src="" alt="Flyer Ampliado">
-    </div>
+<!-- 5. VISOR LIGHTBOX PARA FLYERS -->
+<div class="lightbox" id="lightbox-visor">
+    <button class="lightbox-close" onclick="cerrarFlyer()">&times;</button>
+    <img class="lightbox-content" id="img-ampliada" src="" alt="Flyer Ampliado">
+</div>
 
-    <script>
-        // Aquí puedes agregar después tu etiqueta <audio> con tu link de streaming
-        const playIconBarra = document.getElementById('play-icon-barra');
+<!-- 6. PROGRAMACIÓN Y CONTROLES (JAVASCRIPT) -->
+<script>
+    const audio = document.getElementById('audio-player');
+    const playIconCentro = document.getElementById('play-icon-centro');
+    const playIconBarra = document.getElementById('play-icon-barra');
 
-        function toggleRadio() {
-            // Lógica de reproducción básica para la interfaz
-            if (playIconBarra.textContent === 'play_arrow') {
-                playIconBarra.textContent = 'pause';
-            } else {
-                playIconBarra.textContent = 'play_arrow';
-            }
+    // Sincroniza ambos botones de Play (el del cuadro central y el de la barra base)
+    function toggleRadio() {
+        if (audio.paused) {
+            audio.play().catch(err => console.log("Interacción requerida", err));
+            if(playIconCentro) playIconCentro.textContent = 'pause';
+            if(playIconBarra) playIconBarra.textContent = 'pause';
+        } else {
+            audio.pause();
+            if(playIconCentro) playIconCentro.textContent = 'play_arrow';
+            if(playIconBarra) playIconBarra.textContent = 'play_arrow';
         }
+    }
 
-        function enviarSaludoCabina() {
-            const saludo = document.getElementById('txt-saludo-cabina').value;
-            if(saludo.trim() !== "") {
-                alert("¡Saludo enviado a cabina!: " + saludo);
-                document.getElementById('txt-saludo-cabina').value = "";
-            }
+    function enviarSaludoCabina() {
+        const saludo = document.getElementById('txt-saludo-cabina').value;
+        if(saludo.trim() !== "") {
+            alert("¡Saludo enviado a cabina!: " + saludo);
+            document.getElementById('txt-saludo-cabina').value = "";
         }
+    }
 
-        const lightbox = document.getElementById('lightbox-visor');
-        const imgAmpliada = document.getElementById('img-ampliada');
+    const lightbox = document.getElementById('lightbox-visor');
+    const imgAmpliada = document.getElementById('img-ampliada');
 
-        function abrirFlyer(elemento) {
-            imgAmpliada.src = elemento.querySelector('img').src;
-            lightbox.style.display = 'flex';
-        }
+    function abrirFlyer(elemento) {
+        imgAmpliada.src = elemento.querySelector('img').src;
+        lightbox.style.display = 'flex';
+    }
 
-        function cerrarFlyer() {
-            lightbox.style.display = 'none';
-        }
-    </script>
+    function cerrarFlyer() {
+        lightbox.style.display = 'none';
+    }
+</script>
 </body>
 </html>
