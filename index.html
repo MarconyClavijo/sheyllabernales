@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stereo M 101.5 - Sullana - Piura</title>
-    <!-- Iconos de Google Font Corregidos -->
-    <link href="https://googleapis.com" rel="stylesheet">
+    <!-- Enlace correcto y garantizado para los iconos -->
+    <link rel="stylesheet" href="https://googleapis.com" />
     <style>
         :root {
             --azul-oscuro: #0a2558;
@@ -20,7 +20,7 @@
             padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--gris-claro);
-            padding-bottom: 190px; /* Evita que el reproductor tape el contenido final */
+            padding-bottom: 210px; /* Espacio extra seguro para el reproductor */
         }
 
         header {
@@ -71,14 +71,14 @@
         }
         .item-cancion {
             text-align: center;
-            flex: 0 0 85px; /* Tamaño fijo exacto para que no se deforme */
+            flex: 0 0 85px;
         }
         .item-cancion img {
             width: 100%;
             aspect-ratio: 1/1;
             object-fit: cover;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background-color: #eee; /* Fondo gris temporal si no carga la imagen */
         }
         .cancion-titulo {
             font-size: 11px;
@@ -96,7 +96,7 @@
             text-overflow: ellipsis;
         }
 
-        /* --- PRÓXIMOS EVENTOS (CARRUSEL MÓVIL) --- */
+        /* --- SECCIÓN DE EVENTOS CORREGIDA --- */
         .seccion-eventos {
             background: var(--blanco);
             padding: 15px;
@@ -112,12 +112,10 @@
             display: flex;
             gap: 12px;
             overflow-x: auto;
-            scroll-snap-type: x mandatory;
             padding-bottom: 10px;
         }
         .flyer-item {
-            flex: 0 0 calc(33.333% - 8px); /* 3 visibles exactos */
-            scroll-snap-align: start;
+            flex: 0 0 calc(33.333% - 8px);
             cursor: pointer;
         }
         .flyer-item img {
@@ -125,10 +123,10 @@
             aspect-ratio: 1/1;
             object-fit: cover;
             border-radius: 8px;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            background-color: #ccc;
         }
 
-        /* --- ENLACES Y PUBLICIDAD INFERIOR --- */
+        /* --- BOTONES INFERIORES --- */
         .boton-app {
             background-color: var(--amarillo);
             color: #000;
@@ -137,7 +135,10 @@
             border-radius: 10px;
             font-weight: bold;
             text-decoration: none;
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
             margin-bottom: 20px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
@@ -163,7 +164,6 @@
             left: 0;
             width: 100%;
             background-color: var(--azul-oscuro);
-            color: var(--blanco);
             box-shadow: 0 -4px 10px rgba(0,0,0,0.3);
             z-index: 1000;
             box-sizing: border-box;
@@ -173,9 +173,14 @@
             max-width: 600px;
             margin: 0 auto;
             display: flex;
-            flex-wrap: wrap; /* Permite bajar elementos si falta espacio */
-            align-items: center;
+            flex-direction: column; /* Cambiado a columna para ordenar el bloque de saludos abajo perfectamente */
             gap: 12px;
+        }
+        .reproductor-superior {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
         }
         .btn-play {
             background-color: var(--amarillo);
@@ -190,15 +195,12 @@
             cursor: pointer;
             flex-shrink: 0;
         }
-        .btn-play .material-icons {
-            font-size: 30px;
-        }
         .info-reproductor {
             flex: 1;
-            min-width: 150px; /* Evita que se aplaste el texto */
+            min-width: 0;
         }
         .info-cancion-actual {
-            font-size: 14px;
+            font-size: 15px;
             font-weight: bold;
             color: var(--amarillo);
             white-space: nowrap;
@@ -213,29 +215,30 @@
         .zona-saludos {
             display: flex;
             flex-direction: column;
-            gap: 5px;
-            flex: 1 1 100%; /* Toma todo el ancho abajo si la pantalla es muy angosta */
+            gap: 6px;
+            width: 100%;
         }
         .input-saludo {
             width: 100%;
-            padding: 8px;
-            border-radius: 5px;
+            padding: 10px;
+            border-radius: 6px;
             border: none;
-            font-size: 12px;
+            font-size: 13px;
             box-sizing: border-box;
         }
         .btn-saludo {
             background-color: var(--amarillo);
             color: #000;
             border: none;
-            padding: 8px;
-            border-radius: 5px;
-            font-size: 12px;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 13px;
             font-weight: bold;
             cursor: pointer;
+            width: 100%;
         }
 
-        /* --- LIGHTBOX --- */
+        /* --- VISOR DE FLYERS (LIGHTBOX) --- */
         .lightbox {
             display: none;
             position: fixed;
@@ -263,23 +266,10 @@
             background: none;
             border: none;
         }
-
-        /* Ajustes específicos para pantallas pequeñas */
-        @media (min-width: 480px) {
-            .zona-saludos {
-                flex: 0 0 180px; /* Si hay espacio de lado, se acomoda a la derecha */
-            }
-        }
-        @media (max-width: 400px) {
-            .flyer-item {
-                flex: 0 0 calc(50% - 6px); /* Muestra 2 flyers si la pantalla es extremadamente pequeña */
-            }
-        }
     </style>
 </head>
 <body>
 
-    <!-- Link del streaming oculto para el control de audio -->
     <audio id="audio-player" src="TU_URL_DE_STREAMING_AQUI"></audio>
 
     <header>
@@ -287,7 +277,7 @@
             Stereo M 101.5
             <span>Sullana - Piura</span>
         </div>
-        <span class="material-icons" style="font-size: 30px; cursor: pointer;">menu</span>
+        <span class="material-symbols-outlined" style="font-size: 30px; color:#fff; cursor: pointer;">menu</span>
     </header>
 
     <div class="container">
@@ -306,9 +296,15 @@
 
         <!-- 2. EVENTOS -->
         <div class="seccion-eventos">
-                  <!-- 3. ENLACES, PUBLICIDAD Y CIERRES -->
+            <div class="titulo-seccion">Entérate de los próximos eventos</div>
+            <div class="carrusel-container">
+                <div class="carrusel-track" id="carrusel-flyers">
+                    <div class="flyer-item" onclick="abrirFlyer(this)"><img src="https://placeholder.com" alt="Evento 1"></div>
+                    <div class="flyer-item" onclick="abrirFlyer(this)"><img src="https://placeholder.com" alt="Evento 2"></div>
+       
+               <!-- 3. BOTONES INFERIORES Y CIERRE DE CONTENEDOR -->
         <a href="#" class="boton-app">
-            <span class="material-icons" style="vertical-align: middle; margin-right: 5px;">phone_android</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
             Descargar Aplicativo Oficial
         </a>
 
@@ -317,21 +313,24 @@
             <div class="bloque-item">Publicidad Aquí</div>
         </div>
 
-    </div> <!-- Cierre correcto de container -->
+    </div> <!-- Cierre del container -->
 
-    <!-- 4. REPRODUCTOR INTEGRADO FIJO INFERIOR -->
+    <!-- 4. REPRODUCTOR FIJO UNIFICADO INFERIOR -->
     <div class="reproductor-fijo">
         <div class="reproductor-wrapper">
             
-            <button class="btn-play" onclick="toggleRadio()">
-                <span class="material-icons" id="play-icon">play_arrow</span>
-            </button>
-
-            <div class="info-reproductor">
-                <div class="info-cancion-actual" id="radio-cancion">Cargando canción...</div>
-                <div class="info-programa-actual">🔴 EN VIVO por Stereo M</div>
+            <!-- Bloque Superior: Play e información del programa -->
+            <div class="reproductor-superior">
+                <button class="btn-play" onclick="toggleRadio()">
+                    <svg id="play-icon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                </button>
+                <div class="info-reproductor">
+                    <div class="info-cancion-actual" id="radio-cancion">Cargando canción...</div>
+                    <div class="info-programa-actual">🔴 EN VIVO por Stereo M</div>
+                </div>
             </div>
 
+            <!-- Bloque Inferior: Caja de saludos fija en el mismo cuadro -->
             <div class="zona-saludos">
                 <input type="text" class="input-saludo" id="txt-saludo" placeholder="Escribe tu nombre y saludo aquí...">
                 <button class="btn-saludo" onclick="enviarSaludo()">Enviar a Cabina</button>
@@ -340,7 +339,7 @@
         </div>
     </div>
 
-    <!-- 5. LIGHTBOX (VISOR DE FLYERS) -->
+    <!-- 5. LIGHTBOX (VISOR DE FLYERS EN PANTALLA COMPLETA) -->
     <div class="lightbox" id="lightbox-visor">
         <button class="lightbox-close" onclick="cerrarFlyer()">&times;</button>
         <img class="lightbox-content" id="img-ampliada" src="" alt="Flyer Ampliado">
@@ -351,27 +350,29 @@
         const audio = document.getElementById('audio-player');
         const playIcon = document.getElementById('play-icon');
 
-        // Función para encender y pausar la radio
+        // Controlar la reproducción de la radio
         function toggleRadio() {
             if (audio.paused) {
-                audio.play();
-                playIcon.textContent = 'pause';
+                audio.play().catch(err => console.log("Interacción requerida", err));
+                // Cambiar el icono a pausa usando SVG
+                playIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
             } else {
                 audio.pause();
-                playIcon.textContent = 'play_arrow';
+                // Cambiar el icono a play usando SVG
+                playIcon.innerHTML = '<path d="M8 5v14l11-7z"/>';
             }
         }
 
-        // Función para procesar el envío de saludos
+        // Gestión de envío de saludos
         function enviarSaludo() {
             const saludo = document.getElementById('txt-saludo').value;
             if(saludo.trim() !== "") {
                 alert("¡Saludo enviado a cabina!: " + saludo);
-                document.getElementById('txt-saludo').value = ""; // Limpia el cuadro
+                document.getElementById('txt-saludo').value = "";
             }
         }
 
-        // Funciones para agrandar los flyers en pantalla completa
+        // Control del Lightbox para los flyers de eventos
         const lightbox = document.getElementById('lightbox-visor');
         const imgAmpliada = document.getElementById('img-ampliada');
 
@@ -386,8 +387,3 @@
     </script>
 </body>
 </html>
-
-
-          
-          
-          
