@@ -3,58 +3,373 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Radio Stereo M 101.5 FM</title>
-<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+<title>Radio Stereo M 101.5 FM - Sullana</title>
+<link href="https://googleapis.com" rel="stylesheet">
 <style>
-:root{--azul:#0b3d91;--amarillo:#ffd700;--rojo:#e60000;--blanco:#fff;--gris:#f5f5f5;}
-*{box-sizing:border-box}
-body{margin:0;font-family:Raleway,sans-serif;background:#eef4ff;color:#222}
-header{background:var(--azul);padding:18px;text-align:center}
-.logo{width:120px;animation:flotar 2.5s infinite}
-.slogan{color:#ffd700;font-weight:bold;margin-top:8px}
-.banner img{display:block;width:100%;max-height:420px;object-fit:cover}
-.main{max-width:1100px;margin:auto;padding:25px;display:grid;grid-template-columns:2fr 1fr;gap:20px}
-.card{background:#fff;border-radius:18px;padding:20px;box-shadow:0 5px 15px rgba(0,0,0,.15)}
-audio{width:100%}
-.live{color:#e60000;font-weight:bold;margin:10px 0}
-#song-title{font-weight:bold;color:#0b3d91}
-.buttons a{display:block;text-decoration:none;background:var(--amarillo);color:#111;padding:12px;border-radius:30px;text-align:center;margin-bottom:10px;font-weight:bold}
-.events{max-width:1100px;margin:20px auto;padding:0 20px}
-.events h2{text-align:center;color:#0b3d91}
-.slider{position:relative;max-width:420px;margin:0 auto}
-.slide{display:none}
-.slide.active{display:block}
-.slide img{width:100%;border-radius:15px;box-shadow:0 3px 10px rgba(0,0,0,.15)}
-footer{background:#0b3d91;color:#fff;text-align:center;padding:18px;margin-top:30px}
-@keyframes flotar{50%{transform:translateY(-8px)}}
-@media(max-width:768px){.main{grid-template-columns:1fr}.slider{max-width:320px}}
+/* --- VARIABLES DE COLOR STEREO M --- */
+:root {
+  --azul-principal: #0b3d91;
+  --amarillo-accion: #ffd700;
+  --blanco-tarjeta: #ffffff;
+  --fondo-gris: #f4f7fc;
+  --texto-oscuro: #222222;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Raleway', sans-serif;
+  background-color: var(--fondo-gris);
+  color: var(--texto-oscuro);
+  /* Espacio abajo para que la barra fija no tape el contenido */
+  padding-bottom: 90px; 
+}
+
+/* --- HEADER Y MENÚ HAMBURGUESA --- */
+header {
+  background-color: var(--azul-principal);
+  padding: 12px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.navbar {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo-nav {
+  width: 45px;
+  height: auto;
+}
+.brand-text h1 {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+}
+.brand-text p {
+  color: var(--amarillo-accion);
+  font-size: 11px;
+  font-weight: bold;
+}
+.menu-toggle {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  font-size: 22px;
+  padding: 5px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.nav-links {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: var(--azul-principal);
+  flex-direction: column;
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.nav-links.active {
+  display: flex;
+}
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  padding: 15px;
+  font-weight: bold;
+  font-size: 15px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  cursor: pointer;
+}
+.nav-links a:hover, .nav-links a.active-tab {
+  color: var(--amarillo-accion);
+  background-color: rgba(255,255,255,0.05);
+}
+
+@media(min-width: 769px) {
+  .menu-toggle { display: none; }
+  .nav-links {
+    display: flex;
+    position: static;
+    flex-direction: row;
+    width: auto;
+    border: none;
+    box-shadow: none;
+  }
+  .nav-links a {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+  }
+}
+
+/* --- CONTENEDOR DE SECCIONES INTERCAMBIABLES --- */
+.main-content {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+}
+.page-section {
+  display: none; /* Ocultas por defecto */
+}
+.page-section.active-section {
+  display: block; /* Solo la sección activa se muestra */
+}
+
+/* --- ESTILO BASE DE TARJETAS --- */
+.card {
+  background-color: var(--blanco-tarjeta);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-bottom: 20px;
+}
+h2 {
+  color: var(--azul-principal);
+  margin-bottom: 15px;
+}
+
+/* --- BARRA DE RADIO BASE (FIJA ABAJO) --- */
+.radio-base {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 75px;
+  background-color: var(--azul-principal);
+  border-top: 3px solid var(--amarillo-accion);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  z-index: 9999;
+  box-shadow: 0 -3px 15px rgba(0,0,0,0.2);
+}
+.base-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 70%;
+}
+.base-logo {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+}
+.base-info {
+  display: flex;
+  flex-direction: column;
+}
+.base-live {
+  color: var(--amarillo-accion);
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.base-program {
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.base-right {
+  display: flex;
+  align-items: center;
+}
+/* Botón Play/Stop Circular */
+.btn-audio {
+  background-color: var(--amarillo-accion);
+  border: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  transition: transform 0.1s ease;
+}
+.btn-audio:active {
+  transform: scale(0.95);
+}
+/* Iconos CSS puros para Play y Stop */
+.icon-play {
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 16px solid #111;
+  margin-left: 4px;
+}
+.icon-stop {
+  width: 14px;
+  height: 14px;
+  background-color: #111;
+}
 </style>
-</head><body>
-<header><img class="logo" src="https://i.postimg.cc/L8bjb6K5/1687464033296.png"><div class="slogan">La Radio Papá 🎙️</div></header>
-<div class="banner"><img src="http://imgfz.com/i/fCXV3aO.jpeg"></div>
-<div class="main">
-<div class="card"><h2>🎧 Escúchanos en Vivo</h2><audio id="radioPlayer" controls preload="none"></audio><div class="live">🔴 EN VIVO</div><div id="song-title"><span id="sonic_title">Cargando canción...</span></div></div>
-<div class="card buttons">
-<a href="https://play.google.com/store/apps/details?id=com.innovatel.radiostereom" target="_blank">📲 Descargar App</a>
-<a href="https://www.facebook.com/share/1Dib9eQUFD/" target="_blank">📘 Facebook</a>
-<a href="https://wa.me/51984412853" target="_blank">🎤 WhatsApp Oyentes</a>
-<a href="https://wa.me/51942883375" target="_blank">📢 Publicidad</a>
-</div></div>
-<section class="events">
-<h2>🎉 Entérate de los eventos</h2>
-<div class="slider">
-<div class="slide active"><img src="http://imgfz.com/i/hV6uWgY.jpeg"></div>
-<div class="slide"><img src="http://imgfz.com/i/ITN6eUD.jpeg"></div>
-<div class="slide"><img src="http://imgfz.com/i/tcTFve7.jpeg"></div>
+</head>
+<body>
+
+<header>
+  <div class="navbar">
+    <div class="brand">
+      <img class="logo-nav" src="https://postimg.cc" alt="Logo">
+      <div class="brand-text">
+        <h1>Stereo M 101.5</h1>
+        <p>Sullana - Piura</p>
+      </div>
+    </div>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <nav class="nav-links" id="menuLinks">
+      <a onclick="switchTab('inicio')" id="tab-inicio" class="active-tab">Inicio</a>
+      <a onclick="switchTab('noticias')" id="tab-noticias">Noticias</a>
+      <a onclick="switchTab('galeria')" id="tab-galeria">Galería Social</a>
+      <a onclick="switchTab('programacion')" id="tab-programacion">Programación</a>
+      <a onclick="switchTab('historia')" id="tab-historia">Historia</a>
+    </nav>
+  </div>
+</header>
+
+<main class="main-content">
+  <!-- PESTAÑA: INICIO -->
+  <section id="sec-inicio" class="page-section active-section">
+    <div class="card">
+      <h2>🎧 Bienvenido a Stereo M</h2>
+      <p>Aquí diseñaremos tu reproductor principal estilo Spotify, los accesos rápidos a tu App y tus botones de WhatsApp.</p>
+    </div>
+    <div class="card">
+      <h2>🎉 Próximos Eventos</h2>
+      <p>Aquí irá el slider automático con los flyers de los eventos de Sullana.</p>
+    </div>
+  </section>
+
+  <!-- PESTAÑA: NOTICIAS -->
+  <section id="sec-noticias" class="page-section">
+    <div class="card">
+      <h2>📰 Últimas Noticias</h2>
+      <p>Aquí crearemos las tarjetas informativas que llevarán tráfico directo a tu página de Facebook.</p>
+    </div>
+  </section>
+
+  <!-- PESTAÑA: GALERÍA -->
+  <section id="sec-galeria" class="page-section">
+    <div class="card">
+      <h2>📸 Galería Social</h2>
+      <p>Aquí organizaremos las fotos de las campañas de Navidad, Caritas Felices y apoyo social por años.</p>
+    </div>
+  </section>
+
+  <!-- PESTAÑA: PROGRAMACIÓN -->
+  <section id="sec-programacion" class="page-section">
+    <div class="card">
+      <h2>📅 Nuestra Programación</h2>
+      <p>Aquí colocaremos las tarjetas con las fotos de perfil de cada locutor y sus respectivos horarios.</p>
+    </div>
+  </section>
+
+  <!-- PESTAÑA: HISTORIA -->
+  <section id="sec-historia" class="page-section">
+    <div class="card">
+      <h2>📖 Nuestra Historia</h2>
+      <p>Aquí irá el resumen bien estructurado de la trayectoria y el origen de la radio en la región.</p>
+    </div>
+  </section>
+</main>
+
+<!-- BARRA DE RADIO BASE (FIJA PERMANENTE) -->
+<div class="radio-base">
+  <div class="base-left">
+    <img class="base-logo" src="https://postimg.cc" alt="Stereo M">
+    <div class="base-info">
+      <span class="base-live">🔴 EN VIVO</span>
+      <span class="base-program" id="lbl-programa">Cargando programa...</span>
+    </div>
+  </div>
+  <div class="base-right">
+    <button class="btn-audio" onclick="toggleAudio()" id="btnAudioControl" title="Reproducir">
+      <div class="icon-play" id="audioIcon"></div>
+    </button>
+  </div>
 </div>
-</section>
-<footer>Diseño y desarrollo web por Marcony Clavijo | 942883375</footer>
+
 <script>
-const player=document.getElementById("radioPlayer");
-player.src="https://sonic.globalstream.pro/8108/stream?t="+Date.now();
-setInterval(()=>{if(typeof sonic_data!=="undefined"&&sonic_data.songtitle){document.getElementById("sonic_title").textContent=sonic_data.songtitle;}},2000);
-let i=0;const slides=document.querySelectorAll(".slide");
-setInterval(()=>{slides[i].classList.remove("active");i=(i+1)%slides.length;slides[i].classList.add("active");},5000);
-</script>
-<script id="sonic_js" data-port="8108" src="https://sonic.globalstream.pro/cp/widgets.js?r=906"></script>
-</body></html>
+// --- CONTROL DE MENÚ DESPLEGABLE ---
+function toggleMenu() {
+    document.getElementById("menuLinks").classList.toggle("active");
+}
+
+// --- SISTEMA DE PESTAÑAS (SECCIONES OCULTAS) ---
+function switchTab(targetTab) {
+    // Ocultar todas las secciones y quitar clases activas del menú
+    document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active-section'));
+    document.querySelectorAll('.nav-links a').forEach(tab => tab.classList.remove('active-tab'));
+    
+    // Activar la sección elegida y su pestaña correspondiente
+    document.getElementById('sec-' + targetTab).classList.add('active-section');
+    document.getElementById('tab-' + targetTab).classList.add('active-tab');
+    
+    // Cerrar el menú hamburguesa en móviles tras hacer clic
+    document.getElementById("menuLinks").classList.remove("active");
+    window.scrollTo(0, 0); // Sube el scroll automáticamente
+}
+
+// --- LÓGICA DEL REPRODUCTOR (PLAY / STOP REAL) ---
+// Usamos Audio de JavaScript para controlar el flujo sin depender de la etiqueta visual
+let audioStream = null;
+const streamUrl = "https://globalstream.pro";
+const btnControl = document.getElementById("btnAudioControl");
+const audioIcon = document.getElementById("audioIcon");
+
+function toggleAudio() {
+    if (audioStream === null) {
+        // PLAY: Creamos una instancia fresca con un código de tiempo para romper la caché
+        audioStream = new Audio(streamUrl + "?t=" + Date.now());
+        audioStream.preload = "none";
+        audioStream.play();
+        
+        // Cambiar icono a STOP (Cuadrado)
+        audioIcon.className = "icon-stop";
+        btnControl.title = "Detener";
+    } else {
+        // STOP: Pausamos, destruimos el objeto y liberamos memoria para evitar retrasos
+        audioStream.pause();
+        audioStream.src = "";
+        audioStream.load();
+        audioStream = null;
+        
+        // Cambiar icono a PLAY (Triángulo)
+        audioIcon.className = "icon-play";
+        btnControl.title = "Reproducir";
+    }
+}
+
+// --- SCRIPT DE HORARIOS AUTOMÁTICOS PARA LA BARRA BASE ---
+function actualizarProgramaBase() {
+    var fecha = new Date();
+    var diaSemana = fecha.getDay(); 
+    var m = fecha.getHours() * 60 + fecha.getMinutes();
+    var programa = "Amanece con Stereo M";
+
+    if (diaSemana === 6) { // Sábado
+if (m >= 240 && m < 360) programa = "Levántate alegre Sullana";else if (m >= 360 && m < 450) programa = "El Urraco";else if (m >= 450 && m < 540) programa = "Noticiero La Hora 7";else if (m >= 540 && m < 600) programa = "Percy Reyes";else if (m >= 600 && m < 780) programa = "Carlos Ramírez";else if (m >= 780 && m < 960) programa = "El Papacho";else if (m >= 960 && m < 1080) programa = "Chicho Dueñas";else if (m >= 1080 && m < 1140) programa = "La Hora del Recuerdo";else if (m >= 1140 && m < 1200) programa = "Viva el Deporte";} else if (diaSemana === 0) { // Domingoif (m >= 240 && m < 480) programa = "Levántate alegre Sullana";else if (m >= 480 && m < 600) programa = "Panorama Dominical";else if (m >= 600 && m < 720) programa = "Micky Rivera El Piloto";else if (m >= 720 && m < 960) programa = "Tardes activas";} else { // Lunes a Viernesif (m >= 240 && m < 360) programa = "Levántate con el pie derecho";else if (m >= 360 && m < 450) programa = "El Sentimiento del Urraco";else if (m >= 450 && m < 540) programa = "Noticiero La Hora 7";else if (m >= 540 && m < 600) programa = "Percy Reyes";else if (m >= 600 && m < 780) programa = "Carlos Ramírez";else if (m >= 780 && m < 960) programa = "El Papacho";else if (m >= 960 && m < 1080) programa = "Chicho Dueñas";else if (m >= 1080 && m < 1140) programa = "La Hora del Recuerdo";else if (m >= 1140 && m < 1200) programa = "Viva el Deporte";}document.getElementById("lbl-programa").textContent = programa;}// Inicializar el reloj del programa baseactualizarProgramaBase();setInterval(actualizarProgramaBase, 30000); // Revisa cada 30 segundos
