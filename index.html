@@ -339,3 +339,150 @@
         .lightbox-content {
             max-width: 90%;
             max-height: 80%;
+            border-radius: 8px;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: var(--blanco);
+            font-size: 35px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-header">
+            Stereo M 101.5
+            <span>Sullana - Piura</span>
+        </div>
+        <div class="menu-texto">menu</div>
+    </header>
+
+    <div class="container">
+        <!-- CUADRO REPRODUCTOR PRINCIPAL RESTAURADO -->
+        <div class="cuadro-reproductor-principal">
+            <div class="caratula-grande">
+                <span>Caratula</span>
+            </div>
+            
+            <div class="titulo-cargando">Cargando canción...</div>
+            
+            <div class="badge-vivo">
+                <span class="material-icons" style="font-size:16px;">radio</span> EN VIVO por Stereo M
+            </div>
+            
+            <div>
+                <div class="badge-al-aire">🎙️ Al aire: Tardes activas</div>
+            </div>
+
+            <button class="btn-play-centro" onclick="toggleRadio()">
+                <span class="material-icons">play_arrow</span>
+            </button>
+
+            <div class="bloque-saludos-cabina">
+                <div class="titulo-saludos">
+                    <span class="material-icons" style="font-size:14px;">chat</span> ENVÍA TUS SALUDOS EN VIVO
+                </div>
+                <input type="text" class="input-cabina" id="txt-saludo-cabina" placeholder="Escribe tu nombre y saludo aquí...">
+                <button class="btn-enviar-cabina" onclick="enviarSaludoCabina()">
+                    <span class="material-icons" style="font-size:16px;">mic</span> Enviar a Cabina
+                </button>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DE EVENTOS ANTES QUE EL HISTORIAL -->
+        <div class="seccion-eventos">
+            <div class="titulo-seccion">Entérate de los próximos eventos</div>
+            <div class="carrusel-container">
+                <div class="carrusel-track">
+                    <div class="flyer-item" onclick="abrirFlyer(this)"><img src="https://placeholder.com" alt="Evento 1"></div>
+                    <div class="flyer-item" onclick="abrirFlyer(this)"><img src="https://placeholder.com" alt="Evento 2"></div>
+                    <div class="flyer-item" onclick="abrirFlyer(this)"><img src="https://placeholder.com" alt="Evento 3"></div>
+                    <div class="flyer-item" onclick="abrirFlyer(this)"><img src="https://placeholder.com" alt="Evento 4"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HISTORIAL DE CANCIONES ABAJO DE EVENTOS -->
+        <div class="seccion-historial">
+            <div class="titulo-seccion">Historial de canciones</div>
+            <div class="grid-historial">
+                <div class="item-cancion"><img src="https://placeholder.com" alt="Canción"><div class="cancion-titulo">Canción 1</div><div class="cancion-artista">Artista</div></div>
+                <div class="item-cancion"><img src="https://placeholder.com" alt="Canción"><div class="cancion-titulo">Canción 2</div><div class="cancion-artista">Artista</div></div>
+                <div class="item-cancion"><img src="https://placeholder.com" alt="Canción"><div class="cancion-titulo">Canción 3</div><div class="cancion-artista">Artista</div></div>
+                <div class="item-cancion"><img src="https://placeholder.com" alt="Canción"><div class="cancion-titulo">Canción 4</div><div class="cancion-artista">Artista</div></div>
+                <div class="item-cancion"><img src="https://placeholder.com" alt="Canción"><div class="cancion-titulo">Canción 5</div><div class="cancion-artista">Artista</div></div>
+            </div>
+        </div>
+
+        <a href="#" class="boton-app">
+            <span class="material-icons">phone_android</span> Descargar Aplicativo Oficial
+        </a>
+
+        <div class="bloques-abajo">
+            <div class="bloque-item">Facebook Radio</div>
+            <div class="bloque-item">Publicidad Aquí</div>
+        </div>
+    </div> <!-- Cierre del container -->
+
+    <!-- BARRA REPRODUCTORA FIJA DELGADA ABAJO -->
+    <div class="reproductor-fijo">
+        <div class="reproductor-wrapper">
+            <button class="btn-play-barra" onclick="toggleRadio()">
+                <span class="material-icons" id="play-icon-barra">play_arrow</span>
+            </button>
+            <div class="info-reproductor-barra">
+                <div class="info-cancion-barra" id="radio-cancion-barra">Cargando canción...</div>
+                <div class="info-programa-barra">
+                    <span style="color:red; font-size:8px;">●</span> EN VIVO Tardes activas
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LIGHTBOX PARA FLYERS -->
+    <div class="lightbox" id="lightbox-visor">
+        <button class="lightbox-close" onclick="cerrarFlyer()">&times;</button>
+        <img class="lightbox-content" id="img-ampliada" src="" alt="Flyer Ampliado">
+    </div>
+
+    <script>
+        // Aquí puedes agregar después tu etiqueta <audio> con tu link de streaming
+        const playIconBarra = document.getElementById('play-icon-barra');
+
+        function toggleRadio() {
+            // Lógica de reproducción básica para la interfaz
+            if (playIconBarra.textContent === 'play_arrow') {
+                playIconBarra.textContent = 'pause';
+            } else {
+                playIconBarra.textContent = 'play_arrow';
+            }
+        }
+
+        function enviarSaludoCabina() {
+            const saludo = document.getElementById('txt-saludo-cabina').value;
+            if(saludo.trim() !== "") {
+                alert("¡Saludo enviado a cabina!: " + saludo);
+                document.getElementById('txt-saludo-cabina').value = "";
+            }
+        }
+
+        const lightbox = document.getElementById('lightbox-visor');
+        const imgAmpliada = document.getElementById('img-ampliada');
+
+        function abrirFlyer(elemento) {
+            imgAmpliada.src = elemento.querySelector('img').src;
+            lightbox.style.display = 'flex';
+        }
+
+        function cerrarFlyer() {
+            lightbox.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
