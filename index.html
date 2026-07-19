@@ -545,44 +545,92 @@
     <img class="lightbox-content" id="img-ampliada" src="" alt="Flyer Ampliado">
 </div>
 
-<!-- 6. PROGRAMACIÓN Y CONTROLES (JAVASCRIPT) -->
-<script>
-    const audio = document.getElementById('audio-player');
-    const playIconCentro = document.getElementById('play-icon-centro');
-    const playIconBarra = document.getElementById('play-icon-barra');
+    <!-- CONTROL DE AUDIO CON TU NUEVO STREAMING DE GLOBAL STREAM -->
+    <audio id="radioPlayer" src="https://globalstream.pro"></audio>
 
-    // Sincroniza ambos botones de Play (el del cuadro central y el de la barra base)
-    function toggleRadio() {
-        if (audio.paused) {
-            audio.play().catch(err => console.log("Interacción requerida", err));
-            if(playIconCentro) playIconCentro.textContent = 'pause';
-            if(playIconBarra) playIconBarra.textContent = 'pause';
-        } else {
-            audio.pause();
-            if(playIconCentro) playIconCentro.textContent = 'play_arrow';
-            if(playIconBarra) playIconBarra.textContent = 'play_arrow';
+    <script>
+        const player = document.getElementById("radioPlayer");
+        const playIconCentro = document.getElementById("play-icon-centro");
+        const playIconBarra = document.getElementById("play-icon-barra");
+
+        // 1. CONTROL DE REPRODUCCIÓN (Sincroniza el botón del centro y el de la barra base)
+        function toggleRadio() {
+            if (player.paused) {
+                // Evitamos el almacenamiento en caché al dar Play
+                player.src = "https://sonic.globalstream.pro/8108/stream?t=" + Date.now();
+                player.play().catch(err => console.log("Interacción requerida:", err));
+                
+                if(playIconCentro) playIconCentro.textContent = 'pause';
+                if(playIconBarra) playIconBarra.textContent = 'pause';
+            } else {
+                player.pause();
+                if(playIconCentro) playIconCentro.textContent = 'play_arrow';
+                if(playIconBarra) playIconBarra.textContent = 'play_arrow';
+            }
         }
-    }
 
-    function enviarSaludoCabina() {
-        const saludo = document.getElementById('txt-saludo-cabina').value;
-        if(saludo.trim() !== "") {
-            alert("¡Saludo enviado a cabina!: " + saludo);
-            document.getElementById('txt-saludo-cabina').value = "";
+        // 2. FUNCIÓN DE SALUDOS ENVIADOS DIRECTO AL WHATSAPP OYENTES
+        function enviarSaludoCabina() {
+            const saludoText = document.getElementById("txt-saludo-cabina").value;
+            if (saludoText.trim() !== "") {
+                // Codificamos el texto para que WhatsApp lo lea de forma segura con espacios
+                const textoMensaje = encodeURIComponent("¡Hola Stereo M! Envío mi saludo para la cabina: " + saludoText);
+                const urlWhatsapp = "https://wa.me" + textoMensaje;
+                
+                // Abre el WhatsApp de los Oyentes de forma inmediata
+                window.open(urlWhatsapp, "_blank");
+                document.getElementById("txt-saludo-cabina").value = ""; // Limpia la caja
+            } else {
+                alert("Por favor, escribe un saludo antes de enviar.");
+            }
         }
-    }
 
-    const lightbox = document.getElementById('lightbox-visor');
-    const imgAmpliada = document.getElementById('img-ampliada');
+        // 3. ACTUALIZACIÓN EN TIEMPO REAL DESDE TU PROVEEDOR SONIC
+        let ultimaCancion = "";
 
-    function abrirFlyer(elemento) {
-        imgAmpliada.src = elemento.querySelector('img').src;
-        lightbox.style.display = 'flex';
-    }
+        setInterval(() => {
+            // Verificamos si la variable interna de tu streaming 'sonic_data' existe en la página
+            if (typeof sonic_data !== "undefined" && sonic_data.songtitle) {
+                const cancionActual = sonic_data.songtitle;
+                
+                // Actualizamos el nombre de la canción en la pantalla si ha cambiado
+                const txtCentro = document.getElementById("radio-cancion-centro");
+                if (txtCentro && txtCentro.textContent !== cancionActual) {
+                    txtCentro.textContent = cancionActual;
+                }
 
-    function cerrarFlyer() {
-        lightbox.style.display = 'none';
-    }
-</script>
+                // Si cambió la canción, buscamos de forma automática su carátula en internet
+                if (cancionActual !== ultimaCancion) {
+                    ultimaCancion = cancionActual;
+                    buscarCaratulaAlbum(cancionActual);
+                }
+            }
+        }, 2000);
+
+        // 4. BUSCADOR AUTOMÁTICO DE CARÁTULAS POR NOMBRE DE CANCIÓN
+        async function buscarCaratulaAlbum(terminoBusqueda) {
+            try {
+                // Consultamos de forma gratuita a la API de iTunes para jalar la carátula original
+                const urlApi = `https://apple.com{encodeURIComponent(terminoBusqueda)}&media=music&limit=1`;
+                const respuesta = await fetch(urlApi);
+                const resultado = await respuesta.json();
+                
+                const contenedorCaratula = document.querySelector(".portada-cancion-cabecera");
+                if (contenedorCaratula) {
+                    if (resultado.results && resultado.results.length > 0) {
+                        // Cambiamos el tamaño de la imagen que da iTunes a 400x400 para que se vea nítida
+                        const imagenAlbum = resultado.results[0].artworkUrl100.replace("100x100bb", "400x400bb");
+                        contenedorCaratula.innerHTML = `<img src="${imagenAlbum}" alt="Caratula" style="width:100%; height:100%; object-fit:cover; border-radius:15px;">`;
+                    } else {
+                        // Si la canción es muy nueva o es una mención comercial, dejamos un fondo azul limpio con texto
+                        contenedorCaratula.innerHTML = `<span style="font-size:14px; font-weight:bold; color:#ffcc00;">Stereo M</span>`;
+                    }
+                }
+            } catch (error) {
+                console.log("Buscando alternativa de portada...", error);
+            }
+        }
+    </script>
 </body>
 </html>
+
