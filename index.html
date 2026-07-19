@@ -585,27 +585,45 @@
             }
         }
 
-        // 3. ACTUALIZACIÓN EN TIEMPO REAL DESDE TU PROVEEDOR SONIC
+                // CONEXIÓN DIRECTA UTILIZANDO TU LINK COMPLETO REQUERIDO
         let ultimaCancion = "";
 
-        setInterval(() => {
-            // Verificamos si la variable interna de tu streaming 'sonic_data' existe en la página
-            if (typeof sonic_data !== "undefined" && sonic_data.songtitle) {
-                const cancionActual = sonic_data.songtitle;
+        async function obtenerDatosSonic() {
+            try {
+                // Usamos tu enlace completo exacto para consultar las cabeceras de la transmisión
+                const respuesta = await fetch("https://sonic.globalstream.pro/8108/stream?t=");
                 
-                // Actualizamos el nombre de la canción en la pantalla si ha cambiado
+                // Extraemos el título de la canción directamente desde los metadatos del flujo de audio
+                const icyTitle = respuesta.headers.get("icy-name") || "Música en Vivo";
+                
                 const txtCentro = document.getElementById("radio-cancion-centro");
-                if (txtCentro && txtCentro.textContent !== cancionActual) {
-                    txtCentro.textContent = cancionActual;
+                if (txtCentro) {
+                    txtCentro.textContent = icyTitle;
                 }
 
-                // Si cambió la canción, buscamos de forma automática su carátula en internet
-                if (cancionActual !== ultimaCancion) {
-                    ultimaCancion = cancionActual;
-                    buscarCaratulaAlbum(cancionActual);
+                // Al cambiar la canción, el sistema dispara el buscador automático para cambiar la portada
+                if (icyTitle !== ultimaCancion) {
+                    ultimaCancion = icyTitle;
+                    buscarCaratulaAlbum(icyTitle);
+                }
+            } catch (error) {
+                // Alternativa automática si el navegador restringe la lectura directa de cabeceras por seguridad
+                if (typeof sonic_data !== "undefined" && sonic_data.songtitle) {
+                    const cancionSonic = sonic_data.songtitle;
+                    const txtCentro = document.getElementById("radio-cancion-centro");
+                    if (txtCentro) txtCentro.textContent = cancionSonic;
+                    
+                    if (cancionSonic !== ultimaCancion) {
+                        ultimaCancion = cancionSonic;
+                        buscarCaratulaAlbum(cancionSonic);
+                    }
                 }
             }
-        }, 2000);
+        }
+
+        // Consultas continuas cada 4 segundos respetando tu enlace de flujo estable
+        setInterval(obtenerDatosSonic, 4000);
+        obtenerDatosSonic();
 
         // 4. BUSCADOR AUTOMÁTICO DE CARÁTULAS POR NOMBRE DE CANCIÓN
         async function buscarCaratulaAlbum(terminoBusqueda) {
