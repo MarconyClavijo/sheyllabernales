@@ -555,7 +555,7 @@
         function toggleRadio() {
             if (player.paused) {
                 // TU ENLACE EXACTO CON EL PARÁMETRO DE TIEMPO NATIVO
-                player.src = "https://sonic.globalstream.pro/8108/stream?t=" + Date.now();
+                player.src = "https://sonic.globalstream.pro/8108/stream" + Date.now();
                 player.play().catch(err => console.log("Interacción requerida:", err));
                 
                 if(playIconCentro) playIconCentro.textContent = 'pause';
