@@ -545,17 +545,17 @@
     <img class="lightbox-content" id="img-ampliada" src="" alt="Flyer Ampliado">
 </div>
 
-        <!-- 6. PROGRAMACIÓN, CONTROLES AUTOMÁTICOS Y RECOLECCIÓN DE DATOS DE TU STREAMING -->
+            <!-- 6. PROGRAMACIÓN, CONTROLES AUTOMÁTICOS Y BUSCADOR DE PORTADAS -->
     <script>
         const player = document.getElementById("radioPlayer");
         const playIconCentro = document.getElementById("play-icon-centro");
         const playIconBarra = document.getElementById("play-icon-barra");
 
-        // Control de reproducción usando tu enlace y parámetro original
+        // Control de reproducción usando tu enlace completo exacto y sin alteraciones
         function toggleRadio() {
             if (player.paused) {
-                // TU ENLACE EXACTO CON EL PARÁMETRO DE TIEMPO NATIVO
-                player.src = "https://sonic.globalstream.pro/8108/stream" + Date.now();
+                // TU ENLACE SE QUEDA EXACTAMENTE COMO LO ENVIASTE
+                player.src = "https://sonic.globalstream.pro/8108/stream?t=";
                 player.play().catch(err => console.log("Interacción requerida:", err));
                 
                 if(playIconCentro) playIconCentro.textContent = 'pause';
@@ -567,7 +567,7 @@
             }
         }
 
-        // Envío directo al WhatsApp de Oyentes redactado automáticamente desde el cuadro
+        // Envío directo al WhatsApp de Oyentes redactado automáticamente
         function enviarSaludoCabina() {
             const saludoText = document.getElementById("txt-saludo-cabina").value;
             if (saludoText.trim() !== "") {
@@ -580,7 +580,7 @@
             }
         }
 
-        // Control de pantalla completa para los flyers al hacer clic
+        // Control de pantalla completa para los flyers
         const lightbox = document.getElementById('lightbox-visor');
         const imgAmpliada = document.getElementById('img-ampliada');
 
@@ -593,40 +593,49 @@
             lightbox.style.display = 'none';
         }
 
-        // CONTROL AUTOMÁTICO USANDO TUS PROPIOS DATOS NATIVOS DE LA RADIO
+        // ACTUALIZACIÓN AUTOMÁTICA DE DATOS Y BÚSQUEDA DE PORTADAS
+        let ultimaCancion = "";
+
         setInterval(() => {
-            // Evaluamos exactamente con la condición original que ya te funcionaba
+            // Verificamos si la variable 'sonic_data' de tu streaming ya tiene información de tu radio
             if (typeof sonic_data !== "undefined" && sonic_data.songtitle) {
                 const cancionActual = sonic_data.songtitle;
                 
-                // Actualiza tu ID original por si acaso
-                const txtSonic = document.getElementById("sonic_title");
-                if (txtSonic) txtSonic.textContent = cancionActual;
-
-                // Actualiza el texto en el reproductor del cuadro azul central
+                // Actualiza el texto en el reproductor central
                 const txtCentro = document.getElementById("radio-cancion-centro");
-                if (txtCentro) txtCentro.textContent = cancionActual;
-            }
-        }, 2000);
+                if (txtCentro) {
+                    txtCentro.textContent = cancionActual;
+                }
 
-        // Control del menú de hamburguesa original
-        function toggleMenu() {
-            const menu = document.getElementById('menu-desplegable');
-            if (menu.style.display === 'none' || menu.style.display === '') {
-                menu.style.display = 'block';
-            } else {
-                menu.style.display = 'none';
+                // Si la canción cambió, busca de inmediato su carátula oficial en internet
+                if (cancionActual !== ultimaCancion) {
+                    ultimaCancion = cancionActual;
+                    buscarCaratulaAlbum(cancionActual);
+                }
+            }
+        }, 2500);
+
+        // BUSCADOR AUTOMÁTICO DE CARÁTULAS DE ÁLBUMES
+        async function buscarCaratulaAlbum(terminoBusqueda) {
+            try {
+                const urlApi = `https://apple.com{encodeURIComponent(terminoBusqueda)}&media=music&limit=1`;
+                const respuesta = await fetch(urlApi);
+                const resultado = await respuesta.json();
+                
+                const contenedorCaratula = document.querySelector(".portada-cancion-cabecera");
+                if (contenedorCaratula) {
+                    if (resultado.results && resultado.results.length > 0) {
+                        const imagenAlbum = resultado.results.artworkUrl100.replace("100x100bb", "400x400bb");
+                        contenedorCaratula.innerHTML = `<img src="${imagenAlbum}" alt="Caratula" style="width:100%; height:100%; object-fit:cover; border-radius:15px;">`;
+                    } else {
+                        // Fondo por defecto con tu logo real si es una mención o comercial
+                        contenedorCaratula.innerHTML = `<img src="https://postimg.cc" style="width:100%; height:100%; object-fit:contain; padding:10px; background-color:rgba(255,255,255,0.05); border-radius:15px;">`;
+                    }
+                }
+            } catch (error) {
+                console.log("Buscando alternativa de portada...", error);
             }
         }
-        
-        // Cierra el menú si se hace clic afuera
-        document.addEventListener('click', function(event) {
-            const header = document.querySelector('header');
-            const menu = document.getElementById('menu-desplegable');
-            if (header && !header.contains(event.target) && menu) {
-                menu.style.display = 'none';
-            }
-        });
     </script>
 </body>
 </html>
