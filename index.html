@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stereo M 101.5 - Sullana - Piura</title>
-    <!-- Iconos oficiales para que carguen correctamente -->
+    <!-- Iconos de Google Font -->
     <link href="https://googleapis.com" rel="stylesheet">
     <style>
         :root {
@@ -20,10 +20,10 @@
             padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--gris-claro);
-            padding-bottom: 90px; /* Espacio exacto para la barra base original */
+            padding-bottom: 90px;
         }
 
-        /* --- CABECERA ORIGINAL CON MENÚ EN HAMBURGUESA --- */
+        /* --- CABECERA --- */
         header {
             background-color: var(--azul-oscuro);
             color: var(--blanco);
@@ -31,28 +31,71 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+            z-index: 1500;
         }
         .logo-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo-header img {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+        }
+        .logo-header div {
             font-weight: bold;
-            font-size: 20px;
+            font-size: 18px;
+            line-height: 1.2;
         }
         .logo-header span {
             color: var(--amarillo);
             display: block;
-            font-size: 14px;
+            font-size: 13px;
+            font-weight: 500;
         }
-        /* Botón de hamburguesa original restaurado */
         .btn-hamburguesa {
             display: flex;
             flex-direction: column;
             gap: 5px;
             cursor: pointer;
+            padding: 5px;
         }
         .btn-hamburguesa div {
             width: 25px;
             height: 3px;
             background-color: var(--blanco);
             border-radius: 2px;
+        }
+
+        /* --- MENÚ DESPLEGABLE --- */
+        #menu-desplegable {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 200px;
+            background-color: var(--azul-oscuro);
+            box-shadow: -4px 4px 10px rgba(0,0,0,0.3);
+            border-radius: 0 0 0 10px;
+            overflow: hidden;
+        }
+        #menu-desplegable ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        #menu-desplegable li {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        #menu-desplegable a {
+            display: block;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 15px;
         }
 
         .container {
@@ -62,7 +105,7 @@
             box-sizing: border-box;
         }
 
-        /* --- CUADRO REPRODUCTOR CENTRAL MODIFICADO (Todo en un solo cuadro) --- */
+        /* --- CUADRO REPRODUCTOR CENTRAL --- */
         .cuadro-reproductor-centro {
             background: linear-gradient(135deg, #002266, #0a2558);
             border-radius: 20px;
@@ -71,8 +114,6 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.15);
             margin-bottom: 25px;
         }
-        
-        /* Portada de la canción centrada arriba como estaba */
         .portada-cancion-cabecera {
             width: 160px;
             height: 160px;
@@ -85,8 +126,6 @@
             justify-content: center;
             color: #ccc;
         }
-
-        /* Fila horizontal: Play a la izquierda y datos a la derecha para ahorrar espacio */
         .fila-control-reproductor {
             display: flex;
             align-items: center;
@@ -141,7 +180,7 @@
             display: inline-block;
         }
 
-        /* Bloque de saludos abajo dentro del mismo cuadro */
+        /* --- SALUDOS EN CABINA --- */
         .bloque-saludos-interno {
             border-top: 1px solid rgba(255,255,255,0.15);
             padding-top: 15px;
@@ -183,7 +222,7 @@
             gap: 5px;
         }
 
-        /* --- SECCIÓN DE EVENTOS --- */
+        /* --- SECCIÓN SEGUIDORES / EVENTOS --- */
         .seccion-eventos {
             background: var(--blanco);
             padding: 15px;
@@ -217,10 +256,9 @@
             aspect-ratio: 1/1;
             object-fit: cover;
             border-radius: 8px;
-            background-color: #e0e0e0;
         }
 
-                /* --- HISTORIAL DE CANCIONES (ABAJO DE EVENTOS) --- */
+        /* --- HISTORIAL DE CANCIONES --- */
         .seccion-historial {
             background: var(--blanco);
             padding: 15px;
@@ -261,7 +299,7 @@
             text-overflow: ellipsis;
         }
 
-        /* --- BLOQUES DE DESCARGA Y PUBLICIDAD --- */
+        /* --- BOTONES FINALES --- */
         .boton-app {
             background-color: var(--amarillo);
             color: #000;
@@ -290,10 +328,12 @@
             text-align: center;
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
             font-weight: bold;
+            text-decoration: none;
             color: var(--azul-medio);
         }
+        }
 
-        /* --- BARRA BASE ORIGINAL DE LA RADIO (RESTAURADA CON PLAY A LA DERECHA) --- */
+        /* --- BARRA BASE ORIGINAL --- */
         .barra-base-radio {
             position: fixed;
             bottom: 0;
@@ -318,6 +358,7 @@
             width: 35px;
             height: 35px;
             border-radius: 50%;
+            object-fit: contain;
             background-color: var(--azul-oscuro);
             border: 1px solid rgba(255,255,255,0.2);
         }
@@ -353,7 +394,7 @@
             font-size: 28px;
         }
 
-        /* --- VISOR LIGHTBOX PARA FLYERS --- */
+        /* --- VISOR LIGHTBOX --- */
         .lightbox {
             display: none;
             position: fixed;
@@ -385,179 +426,125 @@
 </head>
 <body>
 
-    <!-- CONTROL DE AUDIO (REEMPLAZA POR TU URL REAL) -->
-    <audio id="audio-player" https://sonic.globalstream.pro/8108/stream?t=
-
-        <!-- CABECERA CONFIGURADA CON TU LOGO REAL Y MENÚ DE HAMBURGUESA -->
-    <header style="position: relative; z-index: 1500; background-color: var(--azul-oscuro); color: var(--blanco); padding: 15px; display: flex; justify-content: space-between; align-items: center;">
-        <div class="logo-header" style="display: flex; align-items: center; gap: 10px;">
-            <!-- Enlace directo a tu logotipo original -->
-            <img src="https://i.postimg.cc/L8bjb6K5/1687464033296.png" alt="Radio Stereo M 101.5" style="width: 45px; height: 45px; object-fit: contain;">
+    <header>
+        <div class="logo-header">
+            <img src="https://postimg.cc" alt="Logo">
             <div>
-                <strong style="font-size: 18px; display: block; line-height: 1.2;">Stereo M 101.5</strong>
-                <span style="color: var(--amarillo); display: block; font-size: 13px; font-weight: 500;">Sullana - Piura</span>
+                Stereo M 101.5
+                <span>Sullana - Piura</span>
             </div>
         </div>
-        
-        <!-- Botón de Hamburguesa con dibujo SVG garantizado -->
-        <div class="btn-hamburguesa" onclick="toggleMenu()" style="cursor: pointer; padding: 5px;">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="3" y1="12" x2="21" y2="12"></line>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <line x1="3" y1="18" x2="21" y2="18"></line>
-            </svg>
+        <div class="btn-hamburguesa" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
-
-        <!-- Menú Desplegable tipo Cortina (Inicio, Historia, Programación, Galería, Noticias) -->
-        <div id="menu-desplegable" style="display: none; position: absolute; top: 100%; right: 0; width: 200px; background-color: var(--azul-oscuro); box-shadow: -4px 4px 10px rgba(0,0,0,0.3); border-radius: 0 0 0 10px; overflow: hidden;">
-            <ul style="list-style: none; margin: 0; padding: 0;">
-                <li style="border-bottom: 1px solid rgba(255,255,255,0.1);"><a href="#inicio" style="display: block; padding: 12px 20px; color: white; text-decoration: none; font-weight: bold; font-size: 15px;">Inicio</a></li>
-                <li style="border-bottom: 1px solid rgba(255,255,255,0.1);"><a href="#historia" style="display: block; padding: 12px 20px; color: white; text-decoration: none; font-weight: bold; font-size: 15px;">Historia</a></li>
-                <li style="border-bottom: 1px solid rgba(255,255,255,0.1);"><a href="#programacion" style="display: block; padding: 12px 20px; color: white; text-decoration: none; font-weight: bold; font-size: 15px;">Programación</a></li>
-                <li style="border-bottom: 1px solid rgba(255,255,255,0.1);"><a href="#galeria" style="display: block; padding: 12px 20px; color: white; text-decoration: none; font-weight: bold; font-size: 15px;">Galería</a></li>
-                <li><a href="#noticias" style="display: block; padding: 12px 20px; color: white; text-decoration: none; font-weight: bold; font-size: 15px;">Noticias</a></li>
+        <div id="menu-desplegable">
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#historia">Historia</a></li>
+                <li><a href="#programacion">Programación</a></li>
+                <li><a href="#galeria">Galería</a></li>
+                <li><a href="#noticias">Noticias</a></li>
             </ul>
         </div>
     </header>
 
-    <!-- Código Javascript para abrir y cerrar el menú -->
-    <script>
-        function toggleMenu() {
-            const menu = document.getElementById('menu-desplegable');
-            if (menu.style.display === 'none' || menu.style.display === '') {
-                menu.style.display = 'block';
-            } else {
-                menu.style.display = 'none';
-            }
-        }
-        
-        // Cierra el menú si se hace clic fuera de la cabecera
-        document.addEventListener('click', function(event) {
-            const header = document.querySelector('header');
-            const menu = document.getElementById('menu-desplegable');
-            if (header && !header.contains(event.target) && menu) {
-                menu.style.display = 'none';
-            }
-        });
-    </script>
-    
-            <!-- CUADRO CENTRAL CON LOS CAMBIOS SOLICITADOS E ICONOS VEGETALES SVG FIJOS -->
+    <div class="container">
         <div class="cuadro-reproductor-centro">
-            <!-- Portada de la canción arriba como estaba -->
             <div class="portada-cancion-cabecera">
-                <span style="font-size: 13px;">Caratula</span>
+                <img src="https://postimg.cc" style="width:100%; height:100%; object-fit:contain; padding:10px; background-color:rgba(255,255,255,0.05); border-radius:15px;" alt="Logo">
             </div>
             
-            <!-- Fila compacta: Play a la izquierda y textos a la derecha -->
             <div class="fila-control-reproductor">
                 <button class="btn-play-izq" onclick="toggleRadio()">
-                    <!-- Icono Play en SVG garantizado -->
-                    <svg id="play-icon-centro" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M8 5v14l11-7z"/>
-                    </svg>
+                    <span class="material-icons" id="play-icon-centro">play_arrow</span>
                 </button>
                 <div class="bloque-textos-streaming">
-                    <div class="txt-cancion-streaming" id="radio-cancion-centro">Cargando canción...</div>
+                    <div class="txt-cancion-streaming" id="radio-cancion-centro"><span id="sonic_title">Cargando canción...</span></div>
                     <div class="txt-vivo-streaming">
-                        <!-- Icono Radio Transmisión en SVG -->
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="2" y1="14" x2="6" y2="14"></line><line x1="10" y1="8" x2="14" y2="8"></line><line x1="18" y1="16" x2="22" y2="16"></line></svg>
-                        EN VIVO por Stereo M
+                        <span class="material-icons" style="font-size:15px; vertical-align:middle; margin-right:3px;">radio</span>🔴 EN VIVO por Stereo M
                     </div>
                     <div>
-                        <div class="txt-al-aire-streaming">🎙️ Al aire: Tardes activas</div>
+                        <div class="txt-al-aire-streaming">🎙️ <span id="locutor">Música Continuada</span></div>
                     </div>
                 </div>
             </div>
 
-            <!-- Caja de saludos fija abajo dentro del mismo cuadro -->
             <div class="bloque-saludos-interno">
                 <div class="txt-saludos-titulo">
-                    <!-- Icono Mensaje/Chat en SVG -->
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                    ENVÍA TUS SALUDOS EN VIVO
+                    <span class="material-icons" style="font-size:14px; vertical-align:middle; margin-right:3px;">chat</span> ENVÍA TUS SALUDOS EN VIVO
                 </div>
                 <input type="text" class="input-saludo-centro" id="txt-saludo-cabina" placeholder="Escribe tu nombre y saludo aquí...">
                 <button class="btn-saludo-centro" onclick="enviarSaludoCabina()">
-                    <!-- Icono Micrófono en SVG -->
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v1a7 7 0 0 1-14 0v-1"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
-                    Enviar a Cabina
+                    <span class="material-icons" style="font-size:16px; vertical-align:middle; margin-right:3px;">mic</span> Enviar a Cabina
                 </button>
             </div>
         </div>
 
-        <!-- 2. SECCIÓN DE EVENTOS -->
         <div class="seccion-eventos">
-            <div class="titulo-seccion">Entérate de los próximos eventos</div>
+            <div class="titulo-seccion">🎉 Entérate de los próximos eventos</div>
             <div class="carrusel-container">
                 <div class="carrusel-track">
-                    <div class="flyer-item" onclick="abrirFlyer(this)"><img src="https://placeholder.com" alt="Evento 1"></div>
-                    <div class="flyer-item" onclick="abrirFlyer(this)"><img src="https://placeholder.com" alt="Evento 2"></div>
-                    <div class="flyer-item" onclick="abrirFlyer(this)"><img src="https://placeholder.com" alt="Evento 3"></div>
-                    <div class="flyer-item" onclick="abrirFlyer(this)"><img src="https://placeholder.com" alt="Evento 4"></div>
+                    <div class="flyer-item" onclick="abrirFlyer(this)"><img src="https://imgfz.com" alt="Evento 1"></div>
+                    <div class="flyer-item" onclick="abrirFlyer(this)"><img src="https://imgfz.com" alt="Evento 2"></div>
+                    <div class="flyer-item" onclick="abrirFlyer(this)"><img src="https://imgfz.com" alt="Evento 3"></div>
                 </div>
             </div>
         </div>
 
-        <!-- 3. HISTORIAL DE CANCIONES (ABAJO DE EVENTOS) -->
         <div class="seccion-historial">
             <div class="titulo-seccion">Historial de canciones</div>
             <div class="grid-historial">
-                <div class="item-cancion"><img src="https://placeholder.com" alt="Canción"><div class="cancion-titulo">Canción 1</div><div class="cancion-artista">Artista</div></div>
-                <div class="item-cancion"><img src="https://placeholder.com" alt="Canción"><div class="cancion-titulo">Canción 2</div><div class="cancion-artista">Artista</div></div>
-                <div class="item-cancion"><img src="https://placeholder.com" alt="Canción"><div class="cancion-titulo">Canción 3</div><div class="cancion-artista">Artista</div></div>
-                <div class="item-cancion"><img src="https://placeholder.com" alt="Canción"><div class="cancion-titulo">Canción 4</div><div class="cancion-artista">Artista</div></div>
-                <div class="item-cancion"><img src="https://placeholder.com" alt="Canción"><div class="cancion-titulo">Canción 5</div><div class="cancion-artista">Artista</div></div>
+                <div class="item-cancion"><img src="https://postimg.cc" alt="Canción"><div class="cancion-titulo">Canción 1</div><div class="cancion-artista">Stereo M</div></div>
+                <div class="item-cancion"><img src="https://postimg.cc" alt="Canción"><div class="cancion-titulo">Canción 2</div><div class="cancion-artista">Stereo M</div></div>
+                <div class="item-cancion"><img src="https://postimg.cc" alt="Canción"><div class="cancion-titulo">Canción 3</div><div class="cancion-artista">Stereo M</div></div>
+                <div class="item-cancion"><img src="https://postimg.cc" alt="Canción"><div class="cancion-titulo">Canción 4</div><div class="cancion-artista">Stereo M</div></div>
+                <div class="item-cancion"><img src="https://postimg.cc" alt="Canción"><div class="cancion-titulo">Canción 5</div><div class="cancion-artista">Stereo M</div></div>
             </div>
         </div>
 
-        <!-- BOTONES FINALES -->
-        <a href="#" class="boton-app">
+        <a href="https://google.com" target="_blank" class="boton-app">
             <span class="material-icons">phone_android</span> Descargar Aplicativo Oficial
         </a>
 
         <div class="bloques-abajo">
-            <div class="bloque-item">Facebook Radio</div>
-            <div class="bloque-item">Publicidad Aquí</div>
+            <a href="https://facebook.com" target="_blank" class="bloque-item" style="padding:15px;">📘 Facebook</a>
+            <a href="https://wa.me" target="_blank" class="bloque-item" style="padding:15px;">📢 Publicidad Here</a>
         </div>
-    </div> <!-- Cierre del container -->
+    </div>
 
-        <!-- 4. BARRA INFERIOR ESTABLE (ORIGINAL CON PLAY A LA DERECHA - ICONO SVG CORREGIDO) -->
-    <div class="barra-base-radio" style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: var(--azul-medio); box-shadow: 0 -4px 10px rgba(0,0,0,0.2); z-index: 1000; box-sizing: border-box; padding: 12px 15px; display: flex; align-items: center; justify-content: space-between; margin-bottom: env(safe-area-inset-bottom, 0px);">
+    <!-- CONTROL DE AUDIO CON TU ENLACE ORIGINAL COMPLETO -->
+    <audio id="radioPlayer" src="https://globalstream.pro"></audio>
+
+    <div class="barra-base-radio">
         <div class="barra-base-izquierda">
-            <!-- Espacio redondo para el logo en miniatura -->
-            <img src="https://i.postimg.cc/L8bjb6K5/1687464033296.png" class="logo-circulo-barra" alt="Stereo M" style="width: 35px; height: 35px; border-radius: 50%; object-fit: contain; background-color: var(--azul-oscuro); border: 1px solid rgba(255,255,255,0.2);">
+            <img src="https://postimg.cc" class="logo-circulo-barra" alt="Stereo M">
             <div class="info-programa-barra">
-                <div class="txt-vivo-barra" style="font-size: 11px; font-weight: bold; color: #ff3333; display: flex; align-items: center; gap: 4px;">● EN VIVO</div>
-                <div class="txt-programa-barra" style="font-size: 13px; font-weight: bold; color: white;">Tardes activas</div>
+                <div class="txt-vivo-barra">● EN VIVO</div>
+                <div class="txt-programa-barra" id="locutor_barra">Tardes activas</div>
             </div>
         </div>
-        <button class="btn-play-barra-derecha" onclick="toggleRadio()" style="background-color: var(--amarillo); color: #000; border: none; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
-            <!-- Icono Play en SVG que cambia de estado sincronizado -->
-            <svg id="play-icon-barra" width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M8 5v14l11-7z"/>
-            </svg>
+        <button class="btn-play-barra-derecha" onclick="toggleRadio()">
+            <span class="material-icons" id="play-icon-barra">play_arrow</span>
         </button>
     </div>
 
-<!-- 5. VISOR LIGHTBOX PARA FLYERS -->
-<div class="lightbox" id="lightbox-visor">
-    <button class="lightbox-close" onclick="cerrarFlyer()">&times;</button>
-    <img class="lightbox-content" id="img-ampliada" src="" alt="Flyer Ampliado">
-</div>
+    <div class="lightbox" id="lightbox-visor">
+        <button class="lightbox-close" onclick="cerrarFlyer()">&times;</button>
+        <img class="lightbox-content" id="img-ampliada" src="" alt="Flyer Ampliado">
+    </div>
 
-            <!-- 6. PROGRAMACIÓN, CONTROLES AUTOMÁTICOS Y BUSCADOR DE PORTADAS -->
     <script>
         const player = document.getElementById("radioPlayer");
         const playIconCentro = document.getElementById("play-icon-centro");
         const playIconBarra = document.getElementById("play-icon-barra");
 
-        // Control de reproducción usando tu enlace completo exacto y sin alteraciones
         function toggleRadio() {
             if (player.paused) {
-                // TU ENLACE SE QUEDA EXACTAMENTE COMO LO ENVIASTE
-                player.src = "https://sonic.globalstream.pro/8108/stream?t=";
-                player.play().catch(err => console.log("Interacción requerida:", err));
-                
+                // TU ENLACE EXACTO CON EL PARÁMETRO COMPLETO NATIVO
+                player.src = "https://globalstream.pro" + Date.now();
+                player.play().catch(err => console.log(err));
                 if(playIconCentro) playIconCentro.textContent = 'pause';
                 if(playIconBarra) playIconBarra.textContent = 'pause';
             } else {
@@ -567,20 +554,16 @@
             }
         }
 
-        // Envío directo al WhatsApp de Oyentes redactado automáticamente
         function enviarSaludoCabina() {
-            const saludoText = document.getElementById("txt-saludo-cabina").value;
+                        const saludoText = document.getElementById("txt-saludo-cabina").value;
             if (saludoText.trim() !== "") {
                 const textoMensaje = encodeURIComponent("¡Hola Stereo M! Envío mi saludo para la cabina: " + saludoText);
                 const urlWhatsapp = "https://wa.me" + textoMensaje;
                 window.open(urlWhatsapp, "_blank");
                 document.getElementById("txt-saludo-cabina").value = "";
-            } else {
-                alert("Por favor, escribe un saludo antes de enviar.");
             }
         }
 
-        // Control de pantalla completa para los flyers
         const lightbox = document.getElementById('lightbox-visor');
         const imgAmpliada = document.getElementById('img-ampliada');
 
@@ -593,29 +576,25 @@
             lightbox.style.display = 'none';
         }
 
-        // ACTUALIZACIÓN AUTOMÁTICA DE DATOS Y BÚSQUEDA DE PORTADAS
+        // CONTROL AUTOMÁTICO CON TU VARIABLE NATIVA SONIC_DATA
         let ultimaCancion = "";
-
         setInterval(() => {
-            // Verificamos si la variable 'sonic_data' de tu streaming ya tiene información de tu radio
             if (typeof sonic_data !== "undefined" && sonic_data.songtitle) {
                 const cancionActual = sonic_data.songtitle;
                 
-                // Actualiza el texto en el reproductor central
-                const txtCentro = document.getElementById("radio-cancion-centro");
-                if (txtCentro) {
-                    txtCentro.textContent = cancionActual;
-                }
+                const txtSonic = document.getElementById("sonic_title");
+                if (txtSonic) txtSonic.textContent = cancionActual;
 
-                // Si la canción cambió, busca de inmediato su carátula oficial en internet
+                const txtCentro = document.getElementById("radio-cancion-centro");
+                if (txtCentro) txtCentro.textContent = cancionActual;
+
                 if (cancionActual !== ultimaCancion) {
                     ultimaCancion = cancionActual;
                     buscarCaratulaAlbum(cancionActual);
                 }
             }
-        }, 2500);
+        }, 2000);
 
-        // BUSCADOR AUTOMÁTICO DE CARÁTULAS DE ÁLBUMES
         async function buscarCaratulaAlbum(terminoBusqueda) {
             try {
                 const urlApi = `https://apple.com{encodeURIComponent(terminoBusqueda)}&media=music&limit=1`;
@@ -628,14 +607,47 @@
                         const imagenAlbum = resultado.results.artworkUrl100.replace("100x100bb", "400x400bb");
                         contenedorCaratula.innerHTML = `<img src="${imagenAlbum}" alt="Caratula" style="width:100%; height:100%; object-fit:cover; border-radius:15px;">`;
                     } else {
-                        // Fondo por defecto con tu logo real si es una mención o comercial
                         contenedorCaratula.innerHTML = `<img src="https://postimg.cc" style="width:100%; height:100%; object-fit:contain; padding:10px; background-color:rgba(255,255,255,0.05); border-radius:15px;">`;
                     }
                 }
             } catch (error) {
-                console.log("Buscando alternativa de portada...", error);
+                console.log(error);
             }
         }
+
+        // TU FUNCIÓN AP DE HORARIOS NATIVA
+        function ap() {
+            var fecha = new Date();
+            var diaSemana = fecha.getDay(); 
+            var m = fecha.getHours() * 60 + fecha.getMinutes();
+            var n = "Música Continuada";
+
+            if (diaSemana >= 1 && diaSemana <= 5) {
+                if (m >= 480 && m < 720) n = "Mañanas Activas";
+                else if (m >= 720 && m < 960) n = "Tardes Activas";
+                else if (m >= 960 && m < 1200) n = "Ruta 101";
+            } else if (diaSemana === 6) {
+                if (m >= 540 && m < 840) n = "Sábados de Fiesta";
+            }
+
+            const divLocutor = document.getElementById("locutor");
+            const divLocBarra = document.getElementById("locutor_barra");
+            if(divLocutor) divLocutor.textContent = n;
+            if(divLocBarra) divLocBarra.textContent = n;
+        }
+        setInterval(ap, 60000);
+        ap();
+
+        function toggleMenu() {
+            const menu = document.getElementById('menu-desplegable');
+            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+        }
+        document.addEventListener('click', function(event) {
+            const header = document.querySelector('header');
+            const menu = document.getElementById('menu-desplegable');
+            if (header && !header.contains(event.target) && menu) menu.style.display = 'none';
+        });
     </script>
 </body>
 </html>
+
