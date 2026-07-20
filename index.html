@@ -545,18 +545,16 @@
     <img class="lightbox-content" id="img-ampliada" src="" alt="Flyer Ampliado">
 </div>
 
-    <!-- CONTROL DE AUDIO CON TU NUEVO STREAMING DE GLOBAL STREAM -->
-    <audio id="radioPlayer" src="https://globalstream.pro"></audio>
-
+        <!-- 6. PROGRAMACIÓN, CONTROLES AUTOMÁTICOS Y RECOLECCIÓN DE DATOS DE TU STREAMING -->
     <script>
         const player = document.getElementById("radioPlayer");
         const playIconCentro = document.getElementById("play-icon-centro");
         const playIconBarra = document.getElementById("play-icon-barra");
 
-        // 1. CONTROL DE REPRODUCCIÓN (Sincroniza el botón del centro y el de la barra base)
+        // Control de reproducción usando tu enlace y parámetro original
         function toggleRadio() {
             if (player.paused) {
-                // Evitamos el almacenamiento en caché al dar Play
+                // TU ENLACE EXACTO CON EL PARÁMETRO DE TIEMPO NATIVO
                 player.src = "https://sonic.globalstream.pro/8108/stream?t=" + Date.now();
                 player.play().catch(err => console.log("Interacción requerida:", err));
                 
@@ -569,86 +567,66 @@
             }
         }
 
-        // 2. FUNCIÓN DE SALUDOS ENVIADOS DIRECTO AL WHATSAPP OYENTES
+        // Envío directo al WhatsApp de Oyentes redactado automáticamente desde el cuadro
         function enviarSaludoCabina() {
             const saludoText = document.getElementById("txt-saludo-cabina").value;
             if (saludoText.trim() !== "") {
-                // Codificamos el texto para que WhatsApp lo lea de forma segura con espacios
                 const textoMensaje = encodeURIComponent("¡Hola Stereo M! Envío mi saludo para la cabina: " + saludoText);
-                const urlWhatsapp = "https://wa.me/51984412853" + textoMensaje;
-                
-                // Abre el WhatsApp de los Oyentes de forma inmediata
+                const urlWhatsapp = "https://wa.me" + textoMensaje;
                 window.open(urlWhatsapp, "_blank");
-                document.getElementById("txt-saludo-cabina").value = ""; // Limpia la caja
+                document.getElementById("txt-saludo-cabina").value = "";
             } else {
                 alert("Por favor, escribe un saludo antes de enviar.");
             }
         }
 
-                // CONEXIÓN DIRECTA UTILIZANDO TU LINK COMPLETO REQUERIDO
-        let ultimaCancion = "";
+        // Control de pantalla completa para los flyers al hacer clic
+        const lightbox = document.getElementById('lightbox-visor');
+        const imgAmpliada = document.getElementById('img-ampliada');
 
-        async function obtenerDatosSonic() {
-            try {
-                // Usamos tu enlace completo exacto para consultar las cabeceras de la transmisión
-                const respuesta = await fetch("https://sonic.globalstream.pro/8108/stream?t=");
+        function abrirFlyer(elemento) {
+            imgAmpliada.src = elemento.querySelector('img').src;
+            lightbox.style.display = 'flex';
+        }
+
+        function cerrarFlyer() {
+            lightbox.style.display = 'none';
+        }
+
+        // CONTROL AUTOMÁTICO USANDO TUS PROPIOS DATOS NATIVOS DE LA RADIO
+        setInterval(() => {
+            // Evaluamos exactamente con la condición original que ya te funcionaba
+            if (typeof sonic_data !== "undefined" && sonic_data.songtitle) {
+                const cancionActual = sonic_data.songtitle;
                 
-                // Extraemos el título de la canción directamente desde los metadatos del flujo de audio
-                const icyTitle = respuesta.headers.get("icy-name") || "Música en Vivo";
-                
+                // Actualiza tu ID original por si acaso
+                const txtSonic = document.getElementById("sonic_title");
+                if (txtSonic) txtSonic.textContent = cancionActual;
+
+                // Actualiza el texto en el reproductor del cuadro azul central
                 const txtCentro = document.getElementById("radio-cancion-centro");
-                if (txtCentro) {
-                    txtCentro.textContent = icyTitle;
-                }
+                if (txtCentro) txtCentro.textContent = cancionActual;
+            }
+        }, 2000);
 
-                // Al cambiar la canción, el sistema dispara el buscador automático para cambiar la portada
-                if (icyTitle !== ultimaCancion) {
-                    ultimaCancion = icyTitle;
-                    buscarCaratulaAlbum(icyTitle);
-                }
-            } catch (error) {
-                // Alternativa automática si el navegador restringe la lectura directa de cabeceras por seguridad
-                if (typeof sonic_data !== "undefined" && sonic_data.songtitle) {
-                    const cancionSonic = sonic_data.songtitle;
-                    const txtCentro = document.getElementById("radio-cancion-centro");
-                    if (txtCentro) txtCentro.textContent = cancionSonic;
-                    
-                    if (cancionSonic !== ultimaCancion) {
-                        ultimaCancion = cancionSonic;
-                        buscarCaratulaAlbum(cancionSonic);
-                    }
-                }
+        // Control del menú de hamburguesa original
+        function toggleMenu() {
+            const menu = document.getElementById('menu-desplegable');
+            if (menu.style.display === 'none' || menu.style.display === '') {
+                menu.style.display = 'block';
+            } else {
+                menu.style.display = 'none';
             }
         }
-
-        // Consultas continuas cada 4 segundos respetando tu enlace de flujo estable
-        setInterval(obtenerDatosSonic, 4000);
-        obtenerDatosSonic();
-
-        // 4. BUSCADOR AUTOMÁTICO DE CARÁTULAS POR NOMBRE DE CANCIÓN
-        async function buscarCaratulaAlbum(terminoBusqueda) {
-            try {
-                // Consultamos de forma gratuita a la API de iTunes para jalar la carátula original
-                const urlApi = `https://apple.com{encodeURIComponent(terminoBusqueda)}&media=music&limit=1`;
-                const respuesta = await fetch(urlApi);
-                const resultado = await respuesta.json();
-                
-                const contenedorCaratula = document.querySelector(".portada-cancion-cabecera");
-                if (contenedorCaratula) {
-                    if (resultado.results && resultado.results.length > 0) {
-                        // Cambiamos el tamaño de la imagen que da iTunes a 400x400 para que se vea nítida
-                        const imagenAlbum = resultado.results[0].artworkUrl100.replace("100x100bb", "400x400bb");
-                        contenedorCaratula.innerHTML = `<img src="${imagenAlbum}" alt="Caratula" style="width:100%; height:100%; object-fit:cover; border-radius:15px;">`;
-                    } else {
-                        // Si la canción es muy nueva o es una mención comercial, dejamos un fondo azul limpio con texto
-                        contenedorCaratula.innerHTML = `<span style="font-size:14px; font-weight:bold; color:#ffcc00;">Stereo M</span>`;
-                    }
-                }
-            } catch (error) {
-                console.log("Buscando alternativa de portada...", error);
+        
+        // Cierra el menú si se hace clic afuera
+        document.addEventListener('click', function(event) {
+            const header = document.querySelector('header');
+            const menu = document.getElementById('menu-desplegable');
+            if (header && !header.contains(event.target) && menu) {
+                menu.style.display = 'none';
             }
-        }
+        });
     </script>
 </body>
 </html>
-
